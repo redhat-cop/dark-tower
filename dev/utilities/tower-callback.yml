@@ -6,12 +6,12 @@
 
   tasks:
 
-    - when: not guid | search("^f")
+    - when: guid is not search("^f")
       name: Return message to caller
       debug:
         msg: "Success guid: {{ guid }}"
 
-    - when: guid | search("^f")
+    - when: guid is search("^f")
       name: Return message to caller
       debug:
         msg: "Fail guid: {{ guid }}"
