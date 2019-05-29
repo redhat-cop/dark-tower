@@ -1,0 +1,18 @@
+---
+- name: When called with var guid tower calls back with
+  hosts: localhost
+  gather_facts: false
+  become: false
+
+  tasks:
+
+    - when: not guid | search("^f")
+      name: Return message to caller
+      debug:
+        msg: "Success guid: {{ guid }}"
+
+    - when: guid | search("^f")
+      name: Return message to caller
+      debug:
+        msg: "Fail guid: {{ guid }}"
+...
