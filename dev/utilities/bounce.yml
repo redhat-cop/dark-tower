@@ -1,0 +1,10 @@
+---
+- name: Manage tower
+  hosts: tower:database
+  gather_facts: false
+
+  tasks:
+
+  - name: Reboot tower and postgres
+    reboot:
+...
