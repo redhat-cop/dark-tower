@@ -1,0 +1,5 @@
+---
+deployment_id:    a_unique_identity
+deployment_type:  ocp4-workshop
+account_id:       an_account_id
+...
