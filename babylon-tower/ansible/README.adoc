@@ -1,0 +1,30 @@
+:toc:
+
+== Overview
+
+
+=== agnostic-ping.yml
+
+Allows you to test the contracted interface with both manadatory and optional vars. Samples of both can ibe found in `./vars`:
+[source,bash]
+----
+└── vars
+    ├── agnosticd-ping-mandatory-vars.yml     <1>
+    └── agnosticd-ping-optional-vars.yml      <2>
+----
+
+. Mandatory vars which must be presented
+. Optional vars which can be presented
+
+==== Usage:
+
+[source,bash]
+----
+tower-cli job launch --job-template=agnostic-ping \
+    -e @vars/agnosticd-ping-mandatory-vars.yml \
+    -e @vars/agnosticd-ping-optional-vars.yml
+----
+
+NOTE: `tower-cli job stdout <JOB_NUMBER>` will return the log output.
+
+
