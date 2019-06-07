@@ -1,26 +1,10 @@
 ---
-- name: Ping a babylon API endpoint contracted interface
+- name: Respond to a babylon API endpoint contracted interface ping
   hosts: localhost
   gather_facts: false
   become: false
 
-  tasks:
+  roles:
 
-  - name: Output Contracted Interface Manadatory variables
-    debug:
-      msg:
-      - "deployment_id :    {{ deployment_id }}"
-      - "deployment_type :  {{ deployment_type }}"
-      - "account_id :       {{ account_id }}"
-
-  - name: Output Contracted Interface Optional variables
-    debug:
-      msg:
-      - "cloud_provider :   {{ cloud_provider | default('UNDEFINED!') }}"
-      - "cloud_region :     {{  cloud_region  | default('UNDEFINED!') }}"
-      - "deployer_type :    {{ deployer_type | default('UNDEFINED!') }}"
-      - "deployment_stage : {{ deployment_stage | default('UNDEFINED!') }}"
-      - "requester_id :     {{ requester_id | default('UNDEFINED!') }}"
-      - "callback_url :     {{ callback_url | default('UNDEFINED!') }}"
-      - "__meta__ :         {{ __meta__ | default('UNDEFINED!') }}"
+  - agnostic-ping
 ...
