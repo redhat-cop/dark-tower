@@ -1,0 +1,14 @@
+---
+cloud_provider:       ec2
+cloud_region:         us-east-1
+deployer_type:        agnosticd
+deployment_stage:     dev
+requester_id:         gpte-admins@redhat.com
+callback_url:         https://anarchy.in.the.uk/api/v1/callback
+__meta__:
+- number_of_nodes:    3
+- highly_available:   true
+- ocp_version:        4.1
+- ocp_node_count:     8
+- ocp_master_count:   3
+...

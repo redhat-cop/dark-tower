@@ -1,24 +1,23 @@
 == Overview
 
-Home for the new Project Babylon, a global Ansible Tower based deployment platform.
+Home for the new Project Babylon, a global infrastructure deployment platform
 
 === Structure
-
 
 
 +
 [source,bash]
 ----
 ├── README.adoc           <1>
-├── ansible.cfg           <2>
-├── dev                   <3>
-│   └── utilities
+├── anarchy               <2>
+├── babylon-tower         <3>
 ├── docs                  <4>
-└── roles                 <5>
+└── jumpgate              <5>
 ----
 
 . This overview README
-. Default ansible.cfg
-. Developer utilities, playbooks etc
-. Documentation
-. Ansible roles directory
+. anarchy resources
+. babylon-tower resources, playbooks, and roles
+. General Documentation
+. jumpgate resources
+
