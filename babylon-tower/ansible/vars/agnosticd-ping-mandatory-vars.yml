@@ -1,5 +1,3 @@
----
-deployment_id:    a_unique_identity
-deployment_type:  ocp4-workshop
-account_id:       an_account_id
-...
+deployment_id:    testdep
+deployment_type:  ocp4workshop
+account_id:       openshiftbu

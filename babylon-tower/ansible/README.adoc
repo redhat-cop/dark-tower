@@ -27,4 +27,44 @@ tower-cli job launch --job-template=agnostic-ping \
 
 NOTE: `tower-cli job stdout <JOB_NUMBER>` will return the log output.
 
+In ugly, non refactored, python: 
+[source,python]
+----
+#!/usr/bin/env python
+
+import requests
+import json, sys
+from requests.auth import HTTPBasicAuth
+
+tower_job_id = "agnostic-ping"
+
+from configparser import ConfigParser
+
+tower_cli_cfg_path = './.tower_cli.cfg'
+config_section = 'general'
+config = ConfigParser()
+config.read(tower_cli_cfg_path)
+
+tower_host = config.get(config_section, 'host')
+tower_user = config.get(config_section, 'username')
+tower_password = config.get(config_section, 'password')
+
+tower_api_endpoint = "https://" + tower_host + "/api/v2"
+data = '{"extra_vars": {"deployment_id": "a_unique_python", "deployment_type" : "ocp4-workshop", "account_id" :"an_account_id" }}'
+
+def tower_launch_job(job_id, data):
+    tower_launch_endpoint = tower_api_endpoint + "/job_templates/" + job_id + "/launch/"
+    response = requests.request("POST", \
+            tower_launch_endpoint, \
+            headers={'Content-Type' : 'application/json'}, \
+            verify=False, \
+            data=data, \
+            auth=HTTPBasicAuth(tower_user,tower_password))
+    return response
+
+response = tower_launch_job(tower_job_id, data)
+j_response = json.dumps(response.json(), indent = 4)
+print(j_response)
+
+----
 
