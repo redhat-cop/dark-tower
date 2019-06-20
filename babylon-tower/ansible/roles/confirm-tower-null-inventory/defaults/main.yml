@@ -1,0 +1,15 @@
+---
+# Tower config
+
+tower_host:                   localhost
+tower_username:               babylon
+tower_password:               change_me
+
+# Org config
+
+tower_inventory_name:         null-inventory
+tower_inventory_description:  Empty inventory for in-memory cloud deployers like agnosticd
+tower_orgainzation:           GPTE
+tower_inventory_state:        present
+
+...
