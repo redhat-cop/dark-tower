@@ -3,9 +3,9 @@
 == Overview
 
 
-=== agnostic-ping.yml
+=== babylon-ping.yml
 
-Allows you to test the contracted interface with both manadatory and optional vars. Samples of both can ibe found in `./vars`:
+Allows you to test the contracted interface with by passing vars. Samples of both can ibe found in `./vars`:
 [source,bash]
 ----
 └── vars

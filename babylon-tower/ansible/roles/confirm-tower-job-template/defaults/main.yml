@@ -1,23 +1,21 @@
 ---
 # Tower config
 
-tower_host:                 localhost
-tower_username:             babylon
-tower_password:             change_me
-
+tower_config_file:                  ./tower_cli.cfg
 # Org config
 
-tower_project_name:         "{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
-tower_orgainzation:         GPTE
-tower_project_state:        present
+tower_orgainzation:                 GPTE
+tower_job_template_state:           present
+cloud_provider_machine_credential:  "machine-credential-{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
 
-# SCM config
+# Job Config
 
-scm_type:                   git
-scm_url:                    https://github.com/redhat-cop/agnosticd.git
-scm_tag:                    development
-scm_branch:                 development
-scm_update_on_launch:       yes
-scm_update_cache_timeout:   0
-scm_clean:                  yes
+job_type:                           run
+tower_inventory_name:               null-inventory
+
+# Default playbook names - inspired via agnosticd convention
+
+playbook_path:                      ansible
+deployer_playbook_name:             main.yml
+destroyer_playbook_name:            destroy.yml
 ...

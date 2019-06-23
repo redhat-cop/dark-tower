@@ -6,5 +6,5 @@
 
   roles:
 
-  - agnostic-ping
+    - babylon-ping
 ...

@@ -1,0 +1,15 @@
+---
+- name: Output values of Contracted Interface variables
+  debug:
+    msg:
+    - "deployment_id:           {{ deployment_id          | default('UNDEFINED') }}"
+    - "deployer_type:           {{ deployer_type          | default('UNDEFINED') }}"
+    - "cloud_provider:          {{ cloud_provider         | default('UNDEFINED') }}"
+    - "cloud_region:            {{ cloud_region           | default('UNDEFINED') }}"
+    - "account_id:              {{ account_id             | default('UNDEFINED') }}"
+    - "requester_id:            {{ requester_id           | default('UNDEFINED') }}"
+    - "callback_url:            {{ callback_url           | default('UNDEFINED') }}"
+    - "environment_type:        {{ environment_type       | default('UNDEFINED') }}"
+    - "environment_level:       {{ environment_level      | default('UNDEFINED') }}"
+    - "environment_parameters:  {{ environment_parameters | default('UNDEFINED') }}"
+...
