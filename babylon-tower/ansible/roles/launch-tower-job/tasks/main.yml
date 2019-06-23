@@ -1,0 +1,5 @@
+---
+- name: PLACEHOLDER STUBB - Tower Job Launcher Goes Here
+  debug:
+    msg: Tower Job Laucher calls this role to... launch jobs
+...

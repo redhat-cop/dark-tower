@@ -1,20 +1,9 @@
 ---
-
 deployer_playbook_name: main.yml
 
-deployer_type:      agnosticd
-deployer_action:    deploy
+deployer_action:        deploy
 
-scm_tag:            ocp-clientvm-prod-1.4
-scm_type:           git
-scm_url:            https://github.com/redhat-cop/agnosticd.git
-
-environment_parameters:
-- var_1: foo_1
-- var_2: foo_2
-- var_3: foo_3
-- dict_bar:
-  - var_d_1: bar_1
-  - var_d_2: bar_2
-  - var_d_3: bar_3
+scm_tag:                ocp-clientvm-prod-1.4
+scm_type:               git
+scm_url:                https://github.com/redhat-cop/agnosticd.git
 ...
