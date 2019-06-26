@@ -1,7 +1,7 @@
 ---
 # Tower config
 
-tower_config_file:                  ./tower_cli.cfg
+# tower_config_file:                  ./tower_cli.cfg
 # Org config
 
 tower_orgainzation:                 GPTE

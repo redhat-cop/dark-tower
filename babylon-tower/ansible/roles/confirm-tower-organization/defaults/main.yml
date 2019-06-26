@@ -1,0 +1,6 @@
+---
+# Org config
+
+tower_orgainzation:                 "{{ account_id }}"
+tower_orgainzation_state:           present
+...

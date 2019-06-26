@@ -1,14 +1,10 @@
 ---
 # Tower config
 
-tower_host:                 localhost
-tower_username:             babylon
-tower_password:             change_me
-
 # Org config
 
 tower_project_name:         "{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
-tower_orgainzation:         GPTE
+tower_orgainzation:         "{{ account_id }}"
 tower_project_state:        present
 
 # SCM config
