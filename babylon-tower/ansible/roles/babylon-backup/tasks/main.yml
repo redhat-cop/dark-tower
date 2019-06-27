@@ -1,4 +1,6 @@
 ---
+- include_taks: in_memory_inventory.yml
+
 - name: Generate name for backup file
   set_fact:
     now: '{{ lookup("pipe", "date +%F-%T") }}'
@@ -30,7 +32,8 @@
 - name: Generate Inventory
   template:
     src: tower_template_inventory.j2
-    dest:  "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/inventory"      
+    dest:  "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/inventory"  
+
 - name: Run Backup script
 #   shell: ./setup.sh -b -e "backup_dest={{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store"
   shell: ./setup.sh -b 
