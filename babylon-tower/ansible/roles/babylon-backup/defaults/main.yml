@@ -1,7 +1,8 @@
 tower_username: admin
 tower_admin_password: changeme
 tower_version: 3.5.0-1
-setup_dir: "{{ lookup('env', 'HOME' ) }}"
+# setup_dir: "{{ lookup('env', 'HOME' ) }}"
+setup_dir: /tmp
 aws_project_name: ans-tower-prod-babylontest
 subdomain_base_suffix: example.opentlc.com
 guid: babylontest
