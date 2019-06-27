@@ -35,6 +35,12 @@
     src: tower_template_inventory.j2
     dest:  "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/inventory"  
 
+- name: list
+  shell: ls /tmp
+  register: output
+
+- debug: var=output
+
 - name: Run Backup script
 #   shell: ./setup.sh -b -e "backup_dest={{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store"
   shell: ./setup.sh -b 
