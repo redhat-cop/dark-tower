@@ -43,9 +43,9 @@
 
 - name: Run Backup script
 #   shell: ./setup.sh -b -e "backup_dest={{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store"
-  shell: ./setup.sh -b 
-  args:
-    chdir: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}"
+  shell:  cd {{ setup_dir }}/ansible-tower-setup-{{ tower_version }}; ./setup.sh -b 
+#   args:
+#     chdir: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}"
 
 - name: Copy inventory file into backup_store
   copy:
