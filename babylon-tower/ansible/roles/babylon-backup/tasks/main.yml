@@ -45,7 +45,7 @@
     format: gz
 
 - name: upload backup file
-    copy:
+  copy:
     src: /root/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}
     dest: /tmp
     notify: remove backup tar from setup directory 
