@@ -1,0 +1,42 @@
+---
+- name: Get list of backup
+  shell: ls /tmp/
+  register: list_backup
+        
+- name: Print backup list
+  debug: var=list_backup.stdout_lines
+        
+- name: Current installed tower version
+  uri:   
+    url: https://tower1.babylontest.example.opentlc.com/api/v2/ping/
+    url_password: "{{ tower_admin_password}}"
+    url_username: "{{ tower_username}}"
+    method: GET 
+    return_content: True
+    validate_certs: False
+  register: installed_tower
+        
+- name: Print current version
+  debug: var=installed_tower.json.version
+
+- name: fail if retore tower version is different from installed 
+  fail: 
+    msg: "Version differs"
+  when: installed_tower.json.version != tower_version.split('-')[0]
+
+- name: Remove existing setup dir 
+  file:  
+    path: /root/ansible-tower-setup-{{ tower_version }}
+    state: absent
+        
+- name: Download tower setup for version {{ tower_version }}
+  unarchive:
+    src: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-{{ tower_version }}.tar.gz
+    dest: /root
+    remote_src: yes 
+        
+- name: Extracting backup file
+  unarchive:
+    src: /tmp/full_tower_backup-3.5.0-1-2019-06-27-02:38:55
+    dest: /root/ansible-tower-setup-{{ tower_version }}
+        

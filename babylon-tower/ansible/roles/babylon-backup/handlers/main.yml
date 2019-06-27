@@ -1,0 +1,9 @@
+- name: remove backup_store
+  file:
+    path: /root/ansible-tower-setup-{{ tower_version }}/backup_store
+    state: absent
+
+- name: remove backup tar from setup directory
+  file:
+    path: /root/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}
+    state: absent

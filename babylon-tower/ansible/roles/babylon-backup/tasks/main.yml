@@ -1,0 +1,52 @@
+---
+- name: Generate name for backup file
+  set_fact:
+    now: '{{ lookup("pipe", "date +%F-%T") }}'
+
+- name: Current installed tower version
+  uri:   
+    url: https://tower1.babylontest.example.opentlc.com/api/v2/ping/
+    url_password: "{{ tower_admin_password}}"
+    url_username: "{{ tower_username}}"
+    method: GET 
+    return_content: True
+    validate_certs: False
+  register: installed_tower
+        
+- name: Print current version
+  debug: var=installed_tower.json.version
+
+- name: fail if retore tower version is different from installed 
+  fail: 
+    msg: "Version differs"
+  when: installed_tower.json.version != tower_version.split('-')[0]
+
+- name: Download tower setup for version {{ tower_version }}
+  unarchive:
+    src: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-{{ tower_version }}.tar.gz
+    dest: /root
+    remote_src: yes 
+        
+        
+- name: Run Backup script
+  shell: ./setup.sh -b -e "backup_dest=/root/ansible-tower-setup-{{ tower_version}}/backup_store"
+  args:
+    chdir: /root/ansible-tower-setup-{{ tower_version }}
+
+- name: Copy inventory file into backup_store
+  copy:
+    src: /root/ansible-tower-setup-{{ tower_version}}/inventory
+    dest: /root/ansible-tower-setup-{{ tower_version}}/backup_store
+        
+- name: Archiving backup
+  archive:
+    path: /root/ansible-tower-setup-{{ tower_version }}/backup_store
+    dest: /root/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}
+    format: gz
+
+- name: upload backup file
+    copy:
+    src: /root/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}
+    dest: /tmp
+    notify: remove backup tar from setup directory 
+        
