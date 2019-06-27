@@ -1,0 +1,36 @@
+---
+
+- name: Gather Facts from aws
+  ec2_instance_facts:
+      region: "{{ region }}"
+      filters:
+        "tag:Project": "{{ aws_project_name }}"
+  register: ec2_instances
+
+- name: Print registered variable ec2_instances
+  debug: 
+    var: ec2_instances
+
+- name: Print filtered output
+  debug: 
+    msg: "{{ item.0 }} and {{ item.1 }} "
+  with_together:
+    - "{{ ec2_instances.instances | map(attribute='tags.AnsibleGroup')| list }}"
+    - "{{ ec2_instances.instances | map(attribute='tags.internaldns')| list }}"
+
+
+- name: Create In Memory Inventory
+  add_host:
+      group: "{{item.0}}"
+      hostname: "{{item.1}}"
+      # ansible_host: "{{item.1}}"
+      # ansible_ssh_private_key_file: ~/.ssh/cloud-user.pem
+      # ansible_ssh_user: cloud-user
+  with_together:
+    - "{{ ec2_instances.instances | map(attribute='tags.AnsibleGroup')| list }}"
+    - "{{ ec2_instances.instances | map(attribute='tags.internaldns')| list }}"
+
+    # - "{{ ec2_instances.instances | map(attribute='internaldns')| list }}"
+    # - "{{ ec2_instances.instances | map(attribute='tags.Name')| list }}"
+- debug: var=groups
+

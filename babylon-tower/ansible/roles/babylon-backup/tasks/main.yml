@@ -1,6 +1,4 @@
 ---
-- name: Include in memory tasks
-  include_tasks: in_memory_inventory.yml
 
 - name: Generate name for backup file
   set_fact:

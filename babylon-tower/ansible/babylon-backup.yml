@@ -1,5 +1,11 @@
 ---
+
 - hosts: localhost
+  gather_facts: false
+  roles:
+   - babylon-inventory
+
+- hosts: bastions
   gather_facts: false
   roles:
     - babylon-backup
