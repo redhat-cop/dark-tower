@@ -29,7 +29,8 @@
         
         
 - name: Run Backup script
-  shell: ./setup.sh -b -e "backup_dest={{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store"
+#   shell: ./setup.sh -b -e "backup_dest={{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store"
+  shell: ./setup.sh -b 
   args:
     chdir: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}"
 

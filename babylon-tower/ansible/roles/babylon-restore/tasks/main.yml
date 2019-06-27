@@ -26,17 +26,17 @@
 
 - name: Remove existing setup dir 
   file:  
-    path: /root/ansible-tower-setup-{{ tower_version }}
+    path: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}"
     state: absent
         
 - name: Download tower setup for version {{ tower_version }}
   unarchive:
     src: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-{{ tower_version }}.tar.gz
-    dest: /root
+    dest: "{{ setup_dir }}"
     remote_src: yes 
         
 - name: Extracting backup file
   unarchive:
     src: /tmp/full_tower_backup-3.5.0-1-2019-06-27-02:38:55
-    dest: /root/ansible-tower-setup-{{ tower_version }}
+    dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}"
         
