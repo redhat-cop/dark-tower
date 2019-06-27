@@ -1,7 +1,8 @@
 ---
+
 - name: Gather Facts from aws
   ec2_instance_facts:
-      region: us-east-1
+      region: "{{ region }}"
       filters:
         "tag:Project": "{{ aws_project_name }}"
   register: ec2_instances
