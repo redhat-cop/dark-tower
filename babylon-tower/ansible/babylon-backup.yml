@@ -1,5 +1,5 @@
 ---
 - hosts: localhost
-  become: True
+  gather_facts: false
   roles:
     - babylon-backup
