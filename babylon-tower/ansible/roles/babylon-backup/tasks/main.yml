@@ -27,7 +27,10 @@
     dest: "{{ setup_dir }}"
     remote_src: yes 
         
-        
+- name: Generate Inventory
+  template:
+    src: tower_template_inventory.j2
+    dest:  "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/inventory"      
 - name: Run Backup script
 #   shell: ./setup.sh -b -e "backup_dest={{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store"
   shell: ./setup.sh -b 
