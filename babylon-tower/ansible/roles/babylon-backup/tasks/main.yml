@@ -36,7 +36,7 @@
     dest:  "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/inventory"  
 
 - name: list
-  shell: ls /tmp
+  shell: cd /tmp; ls 
   register: output
 
 - debug: var=output
