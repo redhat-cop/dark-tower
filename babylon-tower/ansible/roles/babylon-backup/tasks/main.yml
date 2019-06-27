@@ -24,29 +24,29 @@
 - name: Download tower setup for version {{ tower_version }}
   unarchive:
     src: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-{{ tower_version }}.tar.gz
-    dest: /root
+    dest: "{{ setup_dir }}"
     remote_src: yes 
         
         
 - name: Run Backup script
-  shell: ./setup.sh -b -e "backup_dest=/root/ansible-tower-setup-{{ tower_version}}/backup_store"
+  shell: ./setup.sh -b -e "backup_dest={{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store"
   args:
-    chdir: /root/ansible-tower-setup-{{ tower_version }}
+    chdir: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}"
 
 - name: Copy inventory file into backup_store
   copy:
-    src: /root/ansible-tower-setup-{{ tower_version}}/inventory
-    dest: /root/ansible-tower-setup-{{ tower_version}}/backup_store
+    src: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/inventory"
+    dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store"
         
 - name: Archiving backup
   archive:
-    path: /root/ansible-tower-setup-{{ tower_version }}/backup_store
-    dest: /root/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}
+    path: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/backup_store"
+    dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}""
     format: gz
 
 - name: upload backup file
   copy:
-    src: /root/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}
+    src: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}""
     dest: /tmp
     notify: remove backup tar from setup directory 
         
