@@ -1,4 +1,4 @@
 ---
-- hosts: localhost
+- hosts: bastion
   roles:
     - babylon-restore
