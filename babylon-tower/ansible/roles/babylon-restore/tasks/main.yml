@@ -30,12 +30,13 @@
   register: status
 
 - debug: var=status
+
 - name: Download tower setup for version {{ tower_version }}
   unarchive:
     src: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-{{ tower_version }}.tar.gz
     dest: "{{ setup_dir }}"
     remote_src: yes 
-  when: ! status.stat.exists
+  when:  status.stat.exists == false
         
 
 
