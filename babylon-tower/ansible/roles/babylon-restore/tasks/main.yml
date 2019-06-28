@@ -35,7 +35,7 @@
     src: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-{{ tower_version }}.tar.gz
     dest: "{{ setup_dir }}"
     remote_src: yes 
-  when: ! status.status.exist
+  when: ! status.stat.exists
         
 
 
