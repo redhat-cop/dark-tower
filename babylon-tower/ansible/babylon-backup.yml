@@ -2,15 +2,8 @@
 
 - hosts: localhost
   gather_facts: false
-  pre_tasks:
-    - name: Clone agnosticV
-      git:
-         repo: 'https://github.com/prakhar1985/agnosticV.git'
-         dest: /tmp/agnosticV
-
-    - include_vars: "/tmp/agnosticV/GPTE.yml"
-  
   roles:
+    - babylon-git-agnosticV
     - babylon-inventory
    
      

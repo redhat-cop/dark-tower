@@ -1,5 +1,5 @@
 tower_username: admin
 #setup_dir: "{{ lookup('env', 'HOME' ) }}"
-setup_dir: /tmp
+setup_dir: /root
 
 
