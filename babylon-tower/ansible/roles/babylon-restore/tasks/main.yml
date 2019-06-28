@@ -24,10 +24,10 @@
     msg: "Version differs"
   when: installed_tower.json.version != tower_version.split('-')[0]
 
-- name: Remove existing setup dir 
-  file:  
-    path: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}"
-    state: absent
+# - name: Remove existing setup dir 
+#   file:  
+#     path: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}"
+#     state: absent
         
 - name: Download tower setup for version {{ tower_version }}
   unarchive:
@@ -37,6 +37,12 @@
         
 - name: Extracting backup file
   unarchive:
-    src: /tmp/full_tower_backup-3.5.0-1-2019-06-27-02:38:55
-    dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}"
+    src: /tmp/full_tower_backup-3.5.0-1-2019-06-28-07-46.tar.gz
+    dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/restore_backup"
+
+- name: Restoring backup
+  shell: ./setup.sh -r -e "restore_backup_file={{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/restore_backup/tower-backup-latest.tar.gz"
+  args:
+    chdir: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}""
+
         
