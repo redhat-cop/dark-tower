@@ -11,8 +11,8 @@
     - include_vars: "/opt/agnosticV/GPTE.yml"
   
   roles:
-   - babylon-inventory
-   tasks:
+    - babylon-inventory
+   
      
 
 - hosts: bastions
