@@ -44,6 +44,7 @@
   copy:
     src: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/inventory"
     dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store"
+    remote_src: yes
         
 - name: Archiving backup
   archive:
