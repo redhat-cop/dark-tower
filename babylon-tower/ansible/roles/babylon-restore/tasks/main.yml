@@ -35,6 +35,11 @@
     dest: "{{ setup_dir }}"
     remote_src: yes 
         
+- name: Creating directory for restore store
+  file:
+    path: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/restore_backup"
+    state: directory
+    
 - name: Extracting backup file
   unarchive:
     src: /tmp/full_tower_backup-3.5.0-1-2019-06-28-07-46.tar.gz
