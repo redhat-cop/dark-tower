@@ -24,16 +24,18 @@
     msg: "Version differs"
   when: installed_tower.json.version != tower_version.split('-')[0]
 
-# - name: Remove existing setup dir 
-#   file:  
-#     path: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}"
-#     state: absent
-        
+- name: Remove existing setup dir 
+  stat:  
+    path: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}"
+  register: status
+
+- debug: var=status
 - name: Download tower setup for version {{ tower_version }}
   unarchive:
     src: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-{{ tower_version }}.tar.gz
     dest: "{{ setup_dir }}"
     remote_src: yes 
+  when: ! status.status.exist
         
 
 
