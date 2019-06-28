@@ -4,7 +4,7 @@
   ec2_instance_facts:
       region: "{{ region }}"
       filters:
-        "tag:Project": "{{ aws_project_name }}"
+        "tag:Project": "{{ project_tag }}"
   register: ec2_instances
 
 - name: Print registered variable ec2_instances
