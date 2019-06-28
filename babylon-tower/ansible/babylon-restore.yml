@@ -6,7 +6,7 @@
     - babylon-inventory
 
 
-- hosts: bastion
+- hosts: bastions
   roles:
     - babylon-restore
 
