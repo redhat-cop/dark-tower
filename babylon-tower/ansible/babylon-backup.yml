@@ -6,9 +6,9 @@
     - name: Clone agnosticV
       git:
          repo: 'https://github.com/prakhar1985/agnosticV.git'
-         dest: /opt/agnosticV
+         dest: /tmp/agnosticV
 
-    - include_vars: "/opt/agnosticV/GPTE.yml"
+    - include_vars: "/tmp/agnosticV/GPTE.yml"
   
   roles:
     - babylon-inventory
@@ -19,7 +19,7 @@
   become: true
   gather_facts: false
   pre_tasks:
-    - include_vars: "/opt/agnosticV/GPTE.yml"
+    - include_vars: "/tmp/agnosticV/GPTE.yml"
   
   roles:
     - babylon-backup
