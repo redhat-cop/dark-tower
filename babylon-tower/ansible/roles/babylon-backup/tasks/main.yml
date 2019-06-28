@@ -51,7 +51,9 @@
     path: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/backup_store"
     dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}.tar.gz"
     format: gz
-
+  notify: 
+    - remove backup_store
+    
 - name: upload backup file
   copy:
     src: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}.tar.gz"
