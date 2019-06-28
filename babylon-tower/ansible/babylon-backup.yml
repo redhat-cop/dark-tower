@@ -6,7 +6,7 @@
     - name: Clone agnosticV
       git:
          repo: 'https://github.com/prakhar1985/agnosticV.git'
-         dest: /opt
+         dest: /opt/agnosticV
 
     - include_vars: "/opt/agnosticV/GPTE.yml"
   
