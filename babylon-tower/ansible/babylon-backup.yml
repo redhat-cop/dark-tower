@@ -6,6 +6,7 @@
    - babylon-inventory
 
 - hosts: bastions
+  become: true
   gather_facts: false
   roles:
     - babylon-backup

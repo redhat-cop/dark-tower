@@ -7,8 +7,8 @@
 - name: Current installed tower version
   uri:   
     url: https://tower1.babylontest.example.opentlc.com/api/v2/ping/
-    url_password: "{{ tower_admin_password}}"
-    url_username: "{{ tower_username}}"
+    url_password: "{{ tower_admin_password }}"
+    url_username: "{{ tower_username }}"
     method: GET 
     return_content: True
     validate_certs: False
@@ -33,17 +33,12 @@
     src: tower_template_inventory.j2
     dest:  "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/inventory"  
 
-- name: list
-  shell: cd /tmp; ls 
-  register: output
-
-- debug: var=output
 
 - name: Run Backup script
-#   shell: ./setup.sh -b -e "backup_dest={{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store"
-  shell:  cd {{ setup_dir }}/ansible-tower-setup-{{ tower_version }}; ./setup.sh -b 
-#   args:
-#     chdir: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}"
+  shell: ./setup.sh -b -e "backup_dest={{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store"
+#   shell:  cd {{ setup_dir }}/ansible-tower-setup-{{ tower_version }}; ./setup.sh -b 
+  args:
+    chdir: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}"
 
 - name: Copy inventory file into backup_store
   copy:
