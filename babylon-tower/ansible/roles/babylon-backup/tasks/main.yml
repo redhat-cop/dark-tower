@@ -57,5 +57,5 @@
     src: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}"
     dest: /tmp
     remote_src: yes
-    notify: remove backup tar from setup directory 
+  notify: remove backup tar from setup directory 
         
