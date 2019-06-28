@@ -2,6 +2,7 @@
 - hosts: localhost
   gather_facts: false
   roles:
+    - babylon-git-agnosticV
     - babylon-inventory
 
 
