@@ -1,2 +1,2 @@
-tower_username: admin
-setup_dir: "{{ lookup('env', 'HOME' ) }}"
+tower_admin_username: admin
+setup_dir: /root

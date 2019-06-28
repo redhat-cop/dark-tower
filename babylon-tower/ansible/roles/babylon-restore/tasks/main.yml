@@ -8,14 +8,14 @@
         
 - name: Current installed tower version
   uri:   
-    url: https://tower1.babylontest.example.opentlc.com/api/v2/ping/
-    url_password: "{{ tower_admin_password}}"
-    url_username: "{{ tower_username}}"
+    url: https://tower1.{{guid}}.example.opentlc.com/api/v2/ping/
+    url_password: "{{ tower_admin_password }}"
+    url_username: "{{ tower_username }}"
     method: GET 
     return_content: True
     validate_certs: False
   register: installed_tower
-        
+  
 - name: Print current version
   debug: var=installed_tower.json.version
 
