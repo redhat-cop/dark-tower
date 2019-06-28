@@ -2,3 +2,4 @@
 - hosts: bastion
   roles:
     - babylon-restore
+

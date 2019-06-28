@@ -2,7 +2,7 @@
 
 - name: Generate name for backup file
   set_fact:
-    now: '{{ lookup("pipe", "date +%F-%T") }}'
+    now: '{{ lookup("pipe", "date +%F-%H-%M") }}'
 
 - name: Current installed tower version
   uri:   
@@ -49,13 +49,13 @@
 - name: Archiving backup
   archive:
     path: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/backup_store"
-    dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}"
+    dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}.tar.gz"
     format: gz
 
 - name: upload backup file
   copy:
-    src: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}"
+    src: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}.tar.gz"
     dest: /tmp
     remote_src: yes
-  notify: remove backup tar from setup directory 
+notify: remove backup tar from setup directory 
         
