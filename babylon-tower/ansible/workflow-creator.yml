@@ -32,7 +32,6 @@
       playbook: ansible/main.yml
       state: present
       extra_vars_path: "/tmp/agnosticV/{{account_id}}.yml"  
-      vault_credential: test_vault
 
 
 #guid: test01
