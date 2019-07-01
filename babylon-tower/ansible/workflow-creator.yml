@@ -22,6 +22,7 @@
       inventory: "empty-inventory"
       project: "babylon-dev"
       playbook: "agnosticv-cloner.yml"
+      state: present
 
 
 #guid: test01
