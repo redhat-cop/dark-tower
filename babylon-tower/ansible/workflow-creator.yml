@@ -23,7 +23,7 @@
       project: babylon-dev
       playbook: babylon-tower/ansible/agnosticv-cloner.yml
       state: present
-  - name: Deploye config Job
+  - name: Deploy config Job
     tower_job_template:
       name: "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}-job" 
       job_type: run
@@ -33,8 +33,8 @@
       state: present
       extra_vars_path: "{{ item }}"
       loop:
-        - ./sample_info.yml 
-        - "/tmp/agnosticV/{{account_id}}.yml"  
+        - "{{lookup('file', './sample_info.yml')}}"
+        - "{{lookup('file', '/tmp/agnosticV/{{account_id}}.yml')}}"
 
 
 #guid: test01
