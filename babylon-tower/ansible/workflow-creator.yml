@@ -6,7 +6,7 @@
        file: ./sample_info.yml
   - name: Project Create for configs
     tower_project:
-      name: "{{ env_type }}-{{aws_region}}-{{guid}}-{{email}}"
+      name: "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}"
       description: testing
       organization: gpte
       state: present

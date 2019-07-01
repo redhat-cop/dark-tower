@@ -1,4 +1,4 @@
-deployment_id: test01
+guid: test01
 cloud_provider: ec2
 cloud_region: ap-southeast-2
 deployer_type: agnosticd
