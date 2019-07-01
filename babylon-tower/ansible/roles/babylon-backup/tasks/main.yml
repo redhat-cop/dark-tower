@@ -2,11 +2,11 @@
 
 - name: Generate name for backup file
   set_fact:
-    now: '{{ lookup("pipe", "date +%F-%T") }}'
+    now: '{{ lookup("pipe", "date +%F-%H-%M") }}'
 
 - name: Current installed tower version
   uri:   
-    url: https://tower1.babylontest.example.opentlc.com/api/v2/ping/
+    url: https://tower1.{{guid}}.example.opentlc.com/api/v2/ping/
     url_password: "{{ tower_admin_password }}"
     url_username: "{{ tower_username }}"
     method: GET 
@@ -44,16 +44,22 @@
   copy:
     src: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/inventory"
     dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store"
+    remote_src: yes
         
 - name: Archiving backup
   archive:
     path: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/backup_store"
-    dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}"
+    dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}.tar.gz"
     format: gz
-
+  notify: 
+    - remove backup_store
+    
 - name: upload backup file
   copy:
-    src: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}"
+    src: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}.tar.gz"
     dest: /tmp
-    notify: remove backup tar from setup directory 
+    remote_src: yes
+  notify: 
+    - remove backup_store
+    - remove backup tar from setup directory 
         

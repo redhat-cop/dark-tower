@@ -1,0 +1,9 @@
+---
+
+- name: Clone agnosticV
+  git:
+      repo: 'https://github.com/prakhar1985/agnosticV.git'
+      dest: "{{git_dir}}"
+
+
+- include_vars: "{{git_dir}}/{{department}}.yml"
