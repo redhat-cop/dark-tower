@@ -21,7 +21,7 @@
       job_type: run
       inventory: empty-inventory
       project: babylon-dev
-      playbook: agnosticv-cloner.yml
+      playbook: babylon-tower/ansible/agnosticv-cloner.yml
       state: present
 
 
