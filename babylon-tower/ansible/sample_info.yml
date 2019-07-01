@@ -4,5 +4,5 @@ cloud_region: ap-southeast-2
 deployer_type: agnosticd
 account_id: gpte
 email: psrivast@redhat.com
-environment_type: ans-tower-prod
+env_type: ans-tower-prod
 
