@@ -1,0 +1,8 @@
+deployment_id: test01
+cloud_provider: ec2
+cloud_region: ap-southeast-2
+deployer_type: agnosticd
+account_id: gpte
+email: psrivast@redhat.com
+environment_type: ans-tower-prod
+

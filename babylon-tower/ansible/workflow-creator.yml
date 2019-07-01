@@ -1,0 +1,25 @@
+- hosts: localhost
+  gather_facts: false
+  tasks:
+  - name: Vars from anarchy sample
+    include_vars:
+       file: ./sample_info.yml
+  - name: Project Create for configs
+    tower_project:
+      name: "{{ env_type }}-{{aws_region}}-{{guid}}-{{email}}"
+      description: testing
+      organization: gpte
+      state: present
+      scm_update_on_launch: True
+      scm_update_cache_timeout: 60
+      scm_url: https://github.com/prakhar1985/agnosticd.git
+      scm_branch: development
+
+
+#guid: test01
+#cloud_provider: ec2
+#aws_region: ap-southeast-2
+#deployer_type: agnosticd
+#account_id: gpte
+#email: psrivast@redhat.com
+#env_type: ans-tower-prod
