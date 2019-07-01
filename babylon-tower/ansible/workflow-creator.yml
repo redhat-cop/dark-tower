@@ -18,10 +18,10 @@
   - name: AgnosticV cloning job if not created
     tower_job_template: 
       name: AgnosticV Cloner
-      job_type: "run"
-      inventory: "empty-inventory"
-      project: "babylon-dev"
-      playbook: "agnosticv-cloner.yml"
+      job_type: run
+      inventory: empty-inventory
+      project: babylon-dev
+      playbook: agnosticv-cloner.yml
       state: present
 
 
