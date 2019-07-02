@@ -30,7 +30,7 @@
   - name: Run cloner
     tower_job_launch:
       job_template: "AgnosticV Cloner"
-    when: not file_status.stat.exits
+    when: not file_status.stat.exists
   - name: Deploy config Job
     tower_job_template:
       name: "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}-job" 
