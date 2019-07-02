@@ -25,7 +25,7 @@
       state: present
   - name: check the file
     stat: 
-      path: /tmp/agnosticV/{{account_id.yml}}
+      path: "/tmp/agnosticV/{{account_id}}.yml"
     register: file_status
   - name: Run cloner
     tower_job_launch:
