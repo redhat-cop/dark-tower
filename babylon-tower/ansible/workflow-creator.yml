@@ -32,7 +32,7 @@
       playbook: ansible/main.yml
       state: present
       extra_vars: "{{ item }}"
-      loop: 
+      with_items: 
         - "{{lookup('file', './sample_info.yml') | from_yaml }}"
         - "{{lookup('file', '/tmp/agnosticV/{{account_id}}.yml') | from_yaml}}"
 
