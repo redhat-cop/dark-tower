@@ -1,17 +1,15 @@
 - hosts: localhost
   gather_facts: false
   tasks:
-  - name: Testing Username
-    debug: var=git_private_key
-  - name: Create file
-    copy:
-      content: "{{ git_private_key }}"
-      dest: "/tmp/git_keys_{{username}}"
-      mode: 0400
+#   - name: Testing Username
+#     debug: var=git_private_key
+#   - name: Create file
+#     copy:
+#       content: "{{ git_private_key }}"
+#       dest: "/tmp/git_keys_{{username}}"
+#       mode: 0400
   - name: Clone repo
     git:
-     repo: git@github.com:redhat-gpe/agnosticv.git
+     repo: https://github.com/redhat-gpe/agnosticv.git
      dest: /tmp/agnosticv
-     version: master
-     accept_hostkey: yes
-     key_file: "/tmp/git_keys_{{username}}"
+    
