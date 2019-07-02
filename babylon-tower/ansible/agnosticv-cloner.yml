@@ -10,3 +10,4 @@
     git:
      repo: "https://{{username}}:{{git_password}}@github.com/redhat-gpe/agnosticv.git"
      dest: /tmp/agnosticv
+    when: not output.stat.exists
