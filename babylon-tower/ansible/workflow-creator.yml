@@ -31,10 +31,10 @@
       project: "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}"
       playbook: ansible/main.yml
       state: present
-      extra_vars_path: "{{ item }}"
-      loop: 1
-#        - "{{lookup('file', './sample_info.yml')}}"
-#        - "{{lookup('file', '/tmp/agnosticV/{{account_id}}.yml')}}"
+      extra_vars: "{{ item }}"
+      loop: 
+        - "{{lookup('file', './sample_info.yml') | from_yaml }}"
+        - "{{lookup('file', '/tmp/agnosticV/{{account_id}}.yml') | from_yaml}}"
 
 
 #guid: test01
