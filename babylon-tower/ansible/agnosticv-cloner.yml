@@ -7,6 +7,7 @@
     copy:
       content: "{{ git_private_key }}"
       dest: "/tmp/git_keys_{{username}}"
+      mode: 0400
   - name: Clone repo
     git:
      repo: git@github.com:redhat-gpe/agnosticv.git
