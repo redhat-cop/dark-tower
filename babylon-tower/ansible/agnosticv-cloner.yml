@@ -10,6 +10,6 @@
 #       mode: 0400
   - name: Clone repo
     git:
-     repo: https://github.com/redhat-gpe/agnosticv.git
+     repo: "https://{{ username | urlencode }}:{{ git_password | urlencode }}@github.com/redhat-gpe/agnosticv.git"
      dest: /tmp/agnosticv
     
