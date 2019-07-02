@@ -8,8 +8,8 @@
 #       content: "{{ git_private_key }}"
 #       dest: "/tmp/git_keys_{{username}}"
 #       mode: 0400
+  - debug: msg="https://{{ username}}:{{ git_password}}@github.com/redhat-gpe/agnosticv.git"
   - name: Clone repo
     git:
-     repo: "https://{{ username | urlencode }}:{{ git_password | urlencode }}@github.com/redhat-gpe/agnosticv.git"
+     repo: "https://{{ username}}:{{ git_password}}@github.com/redhat-gpe/agnosticv.git"
      dest: /tmp/agnosticv
-     refspec: '+refs/pull/*:refs/heads/*'
