@@ -1,13 +1,8 @@
 - hosts: localhost
   gather_facts: false
   tasks:
-  - name: AgnosticV is already cloned check
-    stat:
-      path: /tmp/agnosticv
-    register: output
-  
   - name: Clone repo
     git:
      repo: "https://{{username}}:{{git_password}}@github.com/redhat-gpe/agnosticv.git"
      dest: /tmp/agnosticv
-    when: not output.stat.exists
+    
