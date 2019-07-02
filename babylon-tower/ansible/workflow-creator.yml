@@ -32,9 +32,9 @@
       playbook: ansible/main.yml
       state: present
       extra_vars_path: "{{ item }}"
-      loop:
-        - "{{lookup('file', './sample_info.yml')}}"
-        - "{{lookup('file', '/tmp/agnosticV/{{account_id}}.yml')}}"
+      loop: 1
+#        - "{{lookup('file', './sample_info.yml')}}"
+#        - "{{lookup('file', '/tmp/agnosticV/{{account_id}}.yml')}}"
 
 
 #guid: test01
