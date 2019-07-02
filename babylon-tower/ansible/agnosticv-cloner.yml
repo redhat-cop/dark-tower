@@ -1,9 +1,9 @@
 - hosts: localhost
   gather_facts: false
-  vars:
-    username: '{{ lookup("env", "USERNAME") }}'
+  #vars:
+  #  username: '{{ lookup("env", "USERNAME") }}'
   tasks:
   - name: Testing Username
     debug:
-      var: username
+      var: '{{username}}'
   
