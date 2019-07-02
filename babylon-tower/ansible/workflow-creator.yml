@@ -31,9 +31,10 @@
       project: "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}"
       playbook: ansible/main.yml
       state: present
-  - name: Update job template
+  - name: Update job template to add creds
     shell: tower-cli job_template associate_credential --job-template "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}-job" --credential prakhar_aws_credential 
-
+  - name: update job template with extra vars
+    shell: tower-cli job_template modify -n "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}-job" -e @./sample_info.yml -e @/tmp/agnosticV/{{account_id}}.yml 
 
 
 
