@@ -32,9 +32,9 @@
       playbook: ansible/main.yml
       state: present
       extra_vars_path: "{{ item }}"
-     loop: 
-       - ./sample_info.yml
-       - "/tmp/agnosticV/{{account_id}}.yml"
+    loop: 
+      - ./sample_info.yml
+      - "/tmp/agnosticV/{{account_id}}.yml"
 
 
 #guid: test01
