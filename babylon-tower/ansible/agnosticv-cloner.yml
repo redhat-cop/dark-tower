@@ -6,4 +6,4 @@
   - name: Create file
     copy:
       content: "{{ git_private_key }}"
-      dest: "{{/tmp/git_keys_{{username}}"
+      dest: "/tmp/git_keys_{{username}}"
