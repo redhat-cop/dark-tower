@@ -3,4 +3,7 @@
   tasks:
   - name: Testing Username
     debug: var=git_private_key
-  
+  - name: Create file
+    copy:
+      content: "{{ git_private_key }}"
+      dest: "{{/tmp/git_keys_{{username}}"
