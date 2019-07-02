@@ -11,5 +11,5 @@
   - debug: msg="https://{{ username}}:{{ git_password}}@github.com/redhat-gpe/agnosticv.git"
   - name: Clone repo
     git:
-     repo: "https://{{ username}}:{{ git_password}}@github.com/redhat-gpe/agnosticv.git"
+     repo: "https://{{username}}:{{git_password}}@github.com/redhat-gpe/agnosticv.git"
      dest: /tmp/agnosticv
