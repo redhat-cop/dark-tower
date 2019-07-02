@@ -1,14 +1,11 @@
 - hosts: localhost
   gather_facts: false
   tasks:
-#   - name: Testing Username
-#     debug: var=git_private_key
-#   - name: Create file
-#     copy:
-#       content: "{{ git_private_key }}"
-#       dest: "/tmp/git_keys_{{username}}"
-#       mode: 0400
-  - debug: msg="https://{{ username}}:{{ git_password}}@github.com/redhat-gpe/agnosticv.git"
+  - name: AgnosticV is already cloned check
+    stat:
+      path: /tmp/agnosticv
+    register: output
+  - debug: var=output
   - name: Clone repo
     git:
      repo: "https://{{username}}:{{git_password}}@github.com/redhat-gpe/agnosticv.git"
