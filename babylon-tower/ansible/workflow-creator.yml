@@ -31,7 +31,7 @@
       project: "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}"
       playbook: ansible/main.yml
       state: present
-      extra_credentials: prakhar_aws_credential
+      cloud_credentials: prakhar_aws_credential
 
 
 #guid: test01
