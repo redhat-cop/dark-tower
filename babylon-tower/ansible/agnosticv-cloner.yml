@@ -7,3 +7,10 @@
     copy:
       content: "{{ git_private_key }}"
       dest: "/tmp/git_keys_{{username}}"
+  - name: Clone repo
+    git:
+     repo: git@github.com:redhat-gpe/agnosticv.git
+     dest: /tmp/agnosticv
+     version: master
+     accept_hostkey: yes
+     key_file: "/tmp/git_keys_{{username}}"
