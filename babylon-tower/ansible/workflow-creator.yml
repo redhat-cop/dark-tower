@@ -31,7 +31,11 @@
       project: "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}"
       playbook: ansible/main.yml
       state: present
-      cloud_credential: prakhar_aws_credential
+  - name: Update job template
+    shell: tower-cli job_template --job-template "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}-job" --credential prakhar_aws_credential 
+
+
+
 
 
 #guid: test01
