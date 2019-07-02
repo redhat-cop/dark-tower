@@ -1,9 +1,7 @@
 - hosts: localhost
   gather_facts: false
-  vars:
-    username: '{{username}}'
   tasks:
   - name: Testing Username
     debug:
-      var: '{{username}}'
+      var: "{{ username }}"
   
