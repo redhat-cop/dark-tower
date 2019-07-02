@@ -1,0 +1,20 @@
+- hosts: localhost
+  gather_facts: false
+  tasks:
+  - name: Vars from anarchy sample
+    include_vars:
+       file: ./sample_info.yml
+  - name: check the agnosticV Directory present
+    stat: 
+      path: "/tmp/agnosticV"
+    register: file_status
+  - name: Run cloner
+    tower_job_launch:
+      job_template: "AgnosticV Cloner"
+    register: job
+    when: not file_status.stat.exists
+  - name: Wait for job to finish
+    tower_job_wait:
+      job_id: "{{ job.id }}" 
+      timeout: 60
+    

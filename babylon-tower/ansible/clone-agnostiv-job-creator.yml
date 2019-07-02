@@ -1,0 +1,15 @@
+- hosts: localhost
+  gather_facts: false
+  tasks:
+  - name: Vars from anarchy sample
+    include_vars:
+       file: ./sample_info.yml
+
+  - name: AgnosticV cloning job if not created
+    tower_job_template: 
+      name: AgnosticV Cloner
+      job_type: run
+      inventory: empty-inventory
+      project: babylon-dev
+      playbook: babylon-tower/ansible/agnosticv-cloner.yml
+      state: present

@@ -1,0 +1,18 @@
+- hosts: localhost
+  gather_facts: false
+  tasks:
+  - name: Vars from anarchy sample
+    include_vars:
+       file: ./sample_info.yml
+  - name: Deploy config Job
+    tower_job_template:
+      name: "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}-job" 
+      job_type: run
+      inventory: empty-inventory
+      project: "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}"
+      playbook: ansible/main.yml
+      state: present
+  - name: Update job template to add creds
+    shell: tower-cli job_template associate_credential --job-template "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}-job" --credential prakhar_aws_credential 
+  - name: update job template with extra vars
+    shell: tower-cli job_template modify -n "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}-job" -e @./sample_info.yml -e @/tmp/agnosticV/{{account_id}}/{env_type}}/common.yml 

@@ -1,4 +1,9 @@
 - hosts: localhost
   gather_facts: false
-  roles:
-    - babylon-git-agnosticV
+  tasks:
+  - name: Testing Username
+    debug:
+      var: '{{ lookup("env", "USERNAME") }}'
+  - name: Testing SSH keys
+    debug:
+      var: '{{ lookup("env", "SCM_PRIVATE_KEY") }}'

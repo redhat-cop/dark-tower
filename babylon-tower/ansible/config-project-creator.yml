@@ -15,28 +15,7 @@
       scm_url: https://github.com/prakhar1985/agnosticd.git
       scm_branch: development
       scm_type: git
-  - name: AgnosticV cloning job if not created
-    tower_job_template: 
-      name: AgnosticV Cloner
-      job_type: run
-      inventory: empty-inventory
-      project: babylon-dev
-      playbook: babylon-tower/ansible/agnosticv-cloner.yml
-      state: present
-  - name: check the file
-    stat: 
-      path: "/tmp/agnosticV/{{account_id}}.yml"
-    register: file_status
-#  - name: Run cloner
-#    tower_job_launch:
-#      job_template: "AgnosticV Cloner"
-#    register: job
-#    when: not file_status.stat.exists
-#  - name: Wait for job to finish
-#    tower_job_wait:
-#      job_id: "{{ job.id }}"
-#      timeout: 60
-#    when: "'pending' in job.status"
+  
   - name: Deploy config Job
     tower_job_template:
       name: "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}-job" 
@@ -50,13 +29,3 @@
   - name: update job template with extra vars
     shell: tower-cli job_template modify -n "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}-job" -e @./sample_info.yml -e @/tmp/agnosticV/{{account_id}}.yml 
 
-
-
-
-#guid: test01
-#cloud_provider: ec2
-#aws_region: ap-southeast-2
-#deployer_type: agnosticd
-#account_id: gpte
-#email: psrivast@redhat.com
-#env_type: ans-tower-prod
