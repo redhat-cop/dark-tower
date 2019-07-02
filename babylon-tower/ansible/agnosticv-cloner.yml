@@ -12,4 +12,4 @@
     git:
      repo: "https://{{ username | urlencode }}:{{ git_password | urlencode }}@github.com/redhat-gpe/agnosticv.git"
      dest: /tmp/agnosticv
-    
+     refspec: '+refs/pull/*:refs/heads/*'
