@@ -36,7 +36,6 @@
     tower_job_wait:
       job_id: "{{ job.id }}"
       timeout: 60
-    when: "{{job.status}}" == "pending"
   - name: Deploy config Job
     tower_job_template:
       name: "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}-job" 
