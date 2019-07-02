@@ -31,10 +31,7 @@
       project: "{{env_type}}-{{aws_region}}-{{guid}}-{{email}}"
       playbook: ansible/main.yml
       state: present
-      extra_vars_path: "{{ item }}"
-    loop: 
-      - ./sample_info.yml
-      - /tmp/agnosticV/{{account_id}}.yml
+      extra_credential: tower-admin-creds
 
 
 #guid: test01
