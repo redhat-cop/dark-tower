@@ -1,9 +1,9 @@
 - hosts: localhost
   gather_facts: false
+  vars:
+    username: '{{ lookup("env", "username") }}'
   tasks:
   - name: Testing Username
     debug:
-      var: '{{ lookup("env", "username") }}'
-  - name: Testing SSH keys
-    debug:
-      var: '{{ lookup("env", "git_private_key") }}'
+      var: username
+  
