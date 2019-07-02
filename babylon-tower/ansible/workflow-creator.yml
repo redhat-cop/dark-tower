@@ -24,7 +24,8 @@
       playbook: babylon-tower/ansible/agnosticv-cloner.yml
       state: present
   - name: check the file
-    stat: /tmp/agnosticV/{{account_id.yml}}
+    stat: 
+      path: /tmp/agnosticV/{{account_id.yml}}
     register: file_status
   - name: Run cloner
     tower_job_launch:
