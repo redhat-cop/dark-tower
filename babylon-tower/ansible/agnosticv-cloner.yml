@@ -2,5 +2,5 @@
   gather_facts: false
   tasks:
   - name: Testing Username
-    debug: var=username
+    debug: var=git_private_key
   
