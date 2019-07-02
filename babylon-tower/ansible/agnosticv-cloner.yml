@@ -2,6 +2,5 @@
   gather_facts: false
   tasks:
   - name: Testing Username
-    debug:
-      var: "{{ username }}"
+    debug: var=username
   
