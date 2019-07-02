@@ -34,7 +34,7 @@
       extra_vars_path: "{{ item }}"
     loop: 
       - ./sample_info.yml
-      - "/tmp/agnosticV/{{account_id}}.yml"
+      - /tmp/agnosticV/{{account_id}}.yml
 
 
 #guid: test01
