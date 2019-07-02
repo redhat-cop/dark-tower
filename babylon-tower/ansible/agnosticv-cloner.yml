@@ -3,7 +3,7 @@
   tasks:
   - name: Testing Username
     debug:
-      var: '{{ lookup("env", "USERNAME") }}'
+      var: '{{ lookup("env", "username") }}'
   - name: Testing SSH keys
     debug:
-      var: '{{ lookup("env", "SCM_PRIVATE_KEY") }}'
+      var: '{{ lookup("env", "git_private_key") }}'
