@@ -18,7 +18,7 @@
           method:           POST
           body_format:      json
           body:
-            token:          "{{ babylon_callback_token }}"
+            #            token:          "{{ babylon_callback_token }}"
             stage:          "{{ babylon_callback_stage    | default('babylon_callback_state UNDEFINED') }}"
             event:          "{{ babylon_callback_event    | default('babylon_callback_event UNDEFINED') }}"
             message:        "{{ babylon_callback_message  | default('babylon_callback_message UNDEFINED') }}"
