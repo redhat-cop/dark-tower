@@ -14,13 +14,13 @@
       - "environment_parameters:  {{ environment_parameters | default('UNDEFINED') }}"
 
 
-- when: callback_url is defined
-  name: Callback to provided URL
-  import_role:
-    name: babylon-callback
-  vars:
-    babylon_callback_url:       "{{ callback_url }}"
-    babylon_callback_stage:     "{{ Initial }}"
-    babylon_callback_event:     SUCCESS
-    babylon_callback_message:   Parameters recieved, getting ready to create 
+#- when: callback_url is defined
+#  name: Callback to provided URL
+#  import_role:
+#    name: babylon-callback
+#  vars:
+#    babylon_callback_url:       "{{ callback_url }}"
+#    babylon_callback_stage:     "{{ Initial }}"
+#    babylon_callback_event:     SUCCESS
+#    babylon_callback_message:   Parameters recieved, getting ready to create 
 ...
