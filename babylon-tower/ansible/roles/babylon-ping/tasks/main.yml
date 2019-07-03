@@ -8,19 +8,19 @@
       - "cloud_region:            {{ cloud_region           | default('UNDEFINED') }}"
       - "account_id:              {{ account_id             | default('UNDEFINED') }}"
       - "requester_id:            {{ requester_id           | default('UNDEFINED') }}"
-      - "anarchy_callback_url:    {{ anarchgy_callback_url  | default('UNDEFINED') }}"
+      - "callback_url:            {{ callback_url           | default('UNDEFINED') }}"
       - "environment_type:        {{ environment_type       | default('UNDEFINED') }}"
       - "environment_level:       {{ environment_level      | default('UNDEFINED') }}"
       - "environment_parameters:  {{ environment_parameters | default('UNDEFINED') }}"
 
 
-- name: Callback to anarchy
-  uri:
-    url:              "{{ anarchy_callback_url }}"
-    method:           POST
-    body_format:      json
-    body:
-      event:          complete
-      otherstuff:     foo
-  when: anarchy_callback_url is defined
+- when: callback_url is defined
+  name: Callback to provided URL
+  import_role:
+    name: babylon-callback
+  vars:
+    babylon_callback_url:       "{{ callback_url }}"
+    babylon_callback_stage:     "{{ Initial }}"
+    babylon_callback_event:     SUCCESS
+    babylon_callback_message:   Parameters recieved, getting ready to create 
 ...

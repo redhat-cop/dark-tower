@@ -1,0 +1,29 @@
+---
+- block:
+  - name: Debug vars for Callback to supplied API endpoint task:x
+    debug:
+      msg:  
+        - "babylon_callback_url     {{ babylon_callback_url     | default('babylon_callback_url UNDEFINED') }}" 
+        - "babylon_callback_event   {{ babylon_callback_event   | default('babylon_callback_event UNDEFINED') }}"
+        - "babylon_callback_message {{ babylon_callback_message | default('babylon_callback_message UNDEFINED') }}"
+        - "babylon_callback_message1 {{ babylon_callback_message1 | default('babylon_callback_message1 UNDEFINED') }}"
+        - "babylon_callback_foo   {{ babylon_callback_event | default('babylon_callback_message UNDEFINED') }}"
+        - "{{ babylon_callback_event }}"
+      verbosity: 2
+
+
+#      - "babylon_callback_stage   {{ babylon_callback_stage   | default('babylon_callback_state UNDEFINED') }}"
+#      - "babylon_callback_event   {{ babylon_callback_event   | default('babylon_callback_event UNDEFINED') }}"
+
+  - name: Callback to supplied API endpoint
+    uri:
+      url:              "{{ babylon_callback_url }}"
+      method:           POST
+      body_format:      json
+      body:
+        #        stage:          "{{ babylon_callback_stage    | default('babylon_callback_state UNDEFINED') }}"
+        event:          "{{ babylon_callback_event    | default('babylon_callback_event UNDEFINED') }}"
+        message:        "{{ babylon_callback_message  | default('babylon_callback_message UNDEFINED') }}"
+    ignore_errors: true    
+    when: babylon_callback_url is defined
+...
