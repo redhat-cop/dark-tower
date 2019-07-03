@@ -1,9 +1,12 @@
 ---
-deployer_playbook_name: main.yml
 
-deployer_action:        deploy
+account_id:               gpte
+deployer_playbook_name:   main.yml
 
-scm_tag:                ocp-clientvm-prod-1.4
-scm_type:               git
-scm_url:                https://github.com/redhat-cop/agnosticd.git
+deployer_action:          deploy
+deployer_type:            agnosticd
+
+scm_tag:                  ansible-windows-prod-0.7
+scm_type:                 git
+scm_url:                  https://github.com/redhat-cop/agnosticd.git
 ...
