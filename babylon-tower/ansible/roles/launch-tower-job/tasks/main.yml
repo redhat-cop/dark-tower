@@ -1,5 +1,10 @@
 ---
-- name: PLACEHOLDER STUBB - Tower Job Launcher Goes Here
-  debug:
-    msg: Tower Job Laucher calls this role to... launch jobs
-...
+- name: Launch Deployer Job
+  tower_job_launch:
+    name: "{{ deployer_action }}-{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
+    inventory: "{{tower_inventory_name}}"
+    extra_vars: "@{{ extra_var_file_directory }}/{{ deployer_type }}-{{ scm_tag }}-{{ guid }}.yml"
+  register: job
+  tower_job_wait:
+    job_id: "{{ job.id }}"
+    timeout: 120 
