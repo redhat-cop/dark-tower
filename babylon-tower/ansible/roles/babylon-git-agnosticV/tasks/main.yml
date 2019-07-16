@@ -6,4 +6,4 @@
       dest: "{{git_dir}}"
 
 
-#- include_vars: "{{git_dir}}/{{account_id}}.yml"
+- include_vars: "{{git_dir}}/{{account_id}}.yml"
