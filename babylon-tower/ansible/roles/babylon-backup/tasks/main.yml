@@ -32,11 +32,11 @@
     dest: "{{ setup_dir }}"
     remote_src: yes 
 
-# # Generate Tower inventory file        
-# - name: Generate Inventory
-#   template:
-#     src: tower_template_inventory.j2
-#     dest:  "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/inventory"  
+# Generate Tower inventory file        
+- name: Generate Inventory
+  template:
+    src: tower_template_inventory.j2
+    dest:  "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/inventory"  
 
 
 # Running Backup tower script for specific location 
