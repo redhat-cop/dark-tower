@@ -53,22 +53,26 @@
     dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store"
     remote_src: yes
 
-# # Freeze Pip packages                     
-# - copy:          
-#     content: ""  
-#     dest: ./ansible_pip_requirements.txt
+ 
                   
+- name: Creating ansible_pip_requirements.txt
+  copy:          
+    content: ""  
+    dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store/ansible_pip_requirements.txt"
+    
+- debug: "{{ hostvar['localhost']['output'] }}"    
+
 # - lineinfile:    
 #     line: "{{ item }}"
-#     path: ansible_pip_requirements.txt
+#     path: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store/ansible_pip_requirements.txt"
 #     insertafter: 'EOF'
 #   loop: "{{ output.stdout_lines }}"
 
 # # Copy tower venv in backup_store dir
 # - name:
 #   copy:
-#     src: /var/lib/awx/venv
-#     dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store"
+#     src: /var/lib/awx/venv/ansible
+#     dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store/ansible"
 #     remote_src: yes
            
 # Archiving backup with all data which is in backup_store directory

@@ -5,6 +5,9 @@
   roles:
     - babylon-git-agnosticV
     - babylon-inventory
+  tasks:
+    - command: pip freeze
+      register: output 
    
      
 
@@ -16,3 +19,4 @@
   
   roles:
     - babylon-backup
+
