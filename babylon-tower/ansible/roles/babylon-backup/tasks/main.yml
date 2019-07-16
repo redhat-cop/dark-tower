@@ -70,7 +70,7 @@
 
 # # Copy tower venv in backup_store dir
 - name:
-  command: scp ec2-user@tower1.{{guid}}.internal:/var/lib/awx/venv/ansible "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store/ansible"
+  command: scp -a ec2-user@tower1.{{guid}}.internal:/var/lib/awx/venv/ansible "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store/ansible"
  
 
 # - name: Synchronization using rsync protocol (pull)
