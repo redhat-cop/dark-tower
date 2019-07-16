@@ -1,9 +1,10 @@
 ---
-
+# Generating constant backup file name
 - name: Generate name for backup file
   set_fact:
     now: '{{ lookup("pipe", "date +%F-%H-%M") }}'
 
+# Gathering Installed Tower version
 - name: Current installed tower version
   uri:   
     url: https://tower1.{{guid}}.example.opentlc.com/api/v2/ping/
@@ -13,39 +14,64 @@
     return_content: True
     validate_certs: False
   register: installed_tower
-        
+
+# Print Tower Version   
 - name: Print current version
   debug: var=installed_tower.json.version
 
-- name: fail if retore tower version is different from installed 
+# Fail if Installed tower version differs from the specified tower version for backup 
+- name: fail if tower version is differs
   fail: 
     msg: "Version differs"
   when: installed_tower.json.version != tower_version.split('-')[0]
 
+# Download Tower setup for specified version 
 - name: Download tower setup for version {{ tower_version }}
   unarchive:
     src: https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-{{ tower_version }}.tar.gz
     dest: "{{ setup_dir }}"
     remote_src: yes 
-        
+
+# Generate Tower inventory file        
 - name: Generate Inventory
   template:
     src: tower_template_inventory.j2
     dest:  "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/inventory"  
 
 
+# Running Backup tower script for specific location 
 - name: Run Backup script
   shell: ./setup.sh -b -e "backup_dest={{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store"
 #   shell:  cd {{ setup_dir }}/ansible-tower-setup-{{ tower_version }}; ./setup.sh -b 
   args:
     chdir: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}"
 
+# Copy tower inventory file for archive
 - name: Copy inventory file into backup_store
   copy:
     src: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/inventory"
     dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store"
     remote_src: yes
-        
+
+# # Freeze Pip packages                     
+# - copy:          
+#     content: ""  
+#     dest: ./ansible_pip_requirements.txt
+                  
+# - lineinfile:    
+#     line: "{{ item }}"
+#     path: ansible_pip_requirements.txt
+#     insertafter: 'EOF'
+#   loop: "{{ output.stdout_lines }}"
+
+# # Copy tower venv in backup_store dir
+# - name:
+#   copy:
+#     src: /var/lib/awx/venv
+#     dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store"
+#     remote_src: yes
+           
+# Archiving backup with all data which is in backup_store directory
 - name: Archiving backup
   archive:
     path: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/backup_store"
@@ -53,7 +79,8 @@
     format: gz
   notify: 
     - remove backup_store
-    
+
+# Upload backup archive   on 3S
 - name: upload backup file
   copy:
     src: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/full_tower_backup-{{ tower_version }}-{{ now }}.tar.gz"
