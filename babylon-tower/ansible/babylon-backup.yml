@@ -4,7 +4,7 @@
   gather_facts: false
   roles:
     - babylon-git-agnosticV
-    - babylon-inventory
+    #- babylon-inventory
   tasks:
     - command: pip freeze
       register: output 
