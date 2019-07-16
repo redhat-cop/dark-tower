@@ -69,17 +69,15 @@
   loop: "{{ hostvars['localhost']['pip_freeze'] }}" 
 
 # # Copy tower venv in backup_store dir
-# - name:
-#   copy:
-#     src: /var/lib/awx/venv/ansible
-#     dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store/ansible"
-#     remote_src: yes
+- name:
+  command: scp ec2-user@tower1.{{guid}}.internal:/var/lib/awx/venv/ansible "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store/ansible"
+ 
 
-- name: Synchronization using rsync protocol (pull)
-  synchronize:
-    mode: pull
-    src: rsync://tower1.{{guid}}.internal/var/lib/awx/venv/ansible/
-    dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/backup_store"
+# - name: Synchronization using rsync protocol (pull)
+#   synchronize:
+#     mode: pull
+#     src: rsync://tower1.{{guid}}.internal/var/lib/awx/venv/ansible/
+#     dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/backup_store"
            
 # Archiving backup with all data which is in backup_store directory
 - name: Archiving backup
