@@ -60,7 +60,7 @@
     content: ""  
     dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store/ansible_pip_requirements.txt"
     
-- debug: "{{ hostvar['localhost']['output'] }}"    
+- debug: "{{ hostvars['localhost']['output'] }}"    
 
 # - lineinfile:    
 #     line: "{{ item }}"
