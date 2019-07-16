@@ -60,14 +60,15 @@
     content: ""  
     dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store/ansible_pip_requirements.txt"
     
-- debug: 
-   msg: "{{ hostvars['localhost']['pip_freeze'] }}"    
+# - debug: 
+#    msg: "{{ hostvars['localhost']['pip_freeze'] }}"    
 
-# - lineinfile:    
-#     line: "{{ item }}"
-#     path: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store/ansible_pip_requirements.txt"
-#     insertafter: 'EOF'
-#   loop: "{{ output.stdout_lines }}"
+- name: Adding content to ansible_pip_requirement.txt file
+  lineinfile:    
+    line: "{{ item }}"
+    path: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store/ansible_pip_requirements.txt"
+    insertafter: 'EOF'
+  loop: "{{ hostvars['localhost']['pip_freeze'] }}" 
 
 # # Copy tower venv in backup_store dir
 # - name:
