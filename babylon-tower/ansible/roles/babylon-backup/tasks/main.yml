@@ -60,7 +60,8 @@
     content: ""  
     dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store/ansible_pip_requirements.txt"
     
-- debug: var="{{ hostvars['localhost']['pip_freeze'] }}"    
+- debug: 
+   msg: "{{ hostvars['localhost']['pip_freeze'] }}"    
 
 # - lineinfile:    
 #     line: "{{ item }}"
