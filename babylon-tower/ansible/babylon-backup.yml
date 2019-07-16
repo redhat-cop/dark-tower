@@ -8,6 +8,8 @@
   tasks:
     - command: pip freeze
       register: output 
+
+    - debug: var=output
    
      
 
