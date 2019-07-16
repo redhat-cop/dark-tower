@@ -10,6 +10,9 @@
       register: output 
 
     - debug: var=output
+    - name: storing output of pip in custom_fact
+      set_fact:
+        pip_freeze: "{{ output.stdout_lines }}"
    
      
 
