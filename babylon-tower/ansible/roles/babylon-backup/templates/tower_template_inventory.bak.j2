@@ -44,3 +44,7 @@ rabbitmq_use_long_name=true
 support{{loop.index}}.{{chomped_zone_internal_dns}} public_host_name=support{{loop.index}}.{{ guid }}{{subdomain_base_suffix}} ssh_host={{host}}
 {% endfor %}
 
+[workers]
+{% for host in groups['workers'] %}
+worker{{loop.index}}.{{chomped_zone_internal_dns}} public_host_name=worker{{loop.index}}.{{ guid }}{{subdomain_base_suffix}} ssh_host={{host}}
+{% endfor %}
