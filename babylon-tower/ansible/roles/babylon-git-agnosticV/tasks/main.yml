@@ -5,7 +5,7 @@
       repo: 'https://github.com/prakhar1985/agnosticV.git'
       dest: "{{git_dir}}"
 
-- command: ls {{ git_dir }}
+- command: ls {{ git_dir }}/{{ account_id }}.yml
   register: output
 - debug: var=output
 #- include_vars: "{{git_dir}}/{{account_id}}.yml"
