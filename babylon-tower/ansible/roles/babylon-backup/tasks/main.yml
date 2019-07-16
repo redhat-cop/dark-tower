@@ -74,6 +74,12 @@
 #     src: /var/lib/awx/venv/ansible
 #     dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version}}/backup_store/ansible"
 #     remote_src: yes
+
+- name: Synchronization using rsync protocol (pull)
+  synchronize:
+    mode: pull
+    src: rsync://tower1.{{guid}}.internal/var/lib/awx/venv/ansible/
+    dest: "{{ setup_dir }}/ansible-tower-setup-{{ tower_version }}/backup_store"
            
 # Archiving backup with all data which is in backup_store directory
 - name: Archiving backup
