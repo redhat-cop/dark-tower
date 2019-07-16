@@ -17,7 +17,7 @@
   become: true
   gather_facts: false
   pre_tasks:
-    - include_vars: "/tmp/agnosticV/GPTE.yml"
+    - include_vars: "/tmp/agnosticV/gpte.yml"
   
   roles:
     - babylon-backup
