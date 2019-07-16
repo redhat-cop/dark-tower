@@ -8,6 +8,9 @@
 - command: ls {{ git_dir }}
   register: output
 - debug: var=output
-  when: item == GPTE.yml
+
+- debug:
+    var: item
+  when: item == "GPTE.yml"
   loop: "{{ output.stdout_lines }}"
 #- include_vars: "{{git_dir}}/{{account_id}}.yml"
