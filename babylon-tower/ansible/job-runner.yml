@@ -1,0 +1,16 @@
+---
+- name: Confirm all necessary Tower components exist and launch job
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+
+  roles:
+    - save-passed-extra-vars
+    - confirm-tower-organization
+    - confirm-tower-null-inventory
+    - confirm-tower-project
+    #    - confirm-tower-machine-credential
+    - confirm-tower-job-template
+    ## - launch-tower-job
+...
