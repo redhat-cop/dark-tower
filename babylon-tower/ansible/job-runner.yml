@@ -12,5 +12,5 @@
     - confirm-tower-project
     #    - confirm-tower-machine-credential
     - confirm-tower-job-template
-    ## - launch-tower-job
+    - launch-tower-job
 ...

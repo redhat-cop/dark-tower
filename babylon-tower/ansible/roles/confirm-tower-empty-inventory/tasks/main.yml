@@ -1,12 +1,11 @@
 ---
-- name: Create null inventory
+- name: Create empty inventories for each instance group
   tower_inventory:
-    name:                       "{{ tower_inventory_name }}"
+    name:                       "{{ tower_inventory_name }}-{{ instance_group }}"
     description:                "{{ tower_inventory_description }}"
     organization:               "{{ tower_orgainzation }}"
     state:                      "{{ tower_inventory_state }}"
-    tower_host:                 "{{ tower_host }}"
-    tower_username:             "{{ tower_username }}"
-    tower_password:             "{{ tower_password }}"
   loop: "{{ tower_instance_groups }}"
+  loop_control:
+    loop_var: instance_group
 ...
