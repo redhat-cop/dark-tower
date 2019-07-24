@@ -2,6 +2,16 @@
 
 == Overview
 
+Contains base playbooks, roles, and development utilities to deploy and develop for babylon tower.
+
+
+=== Primary Components
+
+* `job-runner.yml` - Entry point for all jobs (deploy, teardown, idle, start)
+* `babylon-ping.yml` - Test job
+
+
+
 
 === babylon-ping.yml
 
