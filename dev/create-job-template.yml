@@ -1,0 +1,41 @@
+---
+- name: Debug testing job-template creation
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: false
+
+  vars:
+    tower_orgainzation:                 gpte
+    tower_job_template_state:           present
+    cloud_provider_machine_credential:  "machine-credential-{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
+    job_type:                           run
+    tower_inventory_name:               empty-inventory
+    playbook_path:                      ansible
+    deployer_playbook_name:             main.yml
+    destroyer_playbook_name:            destroy.yml
+    deployer_action:                    deploy
+    deployer_type:                      agnosticd
+    scm_tag:                            ansible-windows-prod-0.7
+    scm_type:                           git
+
+  tasks:
+
+    - name: Set playbook name fact dependant on action
+      set_fact:
+        playbook_name: "{{ deployer_playbook_name if ( deployer_action == 'deploy') else destroyer_playbook_name }}"
+
+    - name: Create tower project
+      tower_job_template:
+        tower_host:               "{{ tower_host }}"
+        tower_username:           "{{ tower_username }}"
+        tower_password:           "{{ tower_password }}"
+        name:                     "{{ deployer_action }}-{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
+        job_type:                 "{{ job_type }}"
+        inventory:                "{{ tower_inventory_name }}"
+        project:                  "{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
+        playbook:                 "{{ playbook_path }}/{{ playbook_name }}"
+        state:                    "{{ tower_job_template_state }}"
+        #  extra_vars_path:          "{{ extra_var_file_directory }}/{{ deployer_type }}-{{ scm_tag }}-{{ guid }}.yml"
+        #  credential:               "{{ cloud_provider_machine_credential }}"
+...

@@ -1,0 +1,12 @@
+---
+- name: Confirm all necessary Tower components exist and launch job
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+  vars:
+  #    tower_config_file: ~/secrets/tower_cli.cfg
+
+  roles:
+    - confirm-tower-organization
+...

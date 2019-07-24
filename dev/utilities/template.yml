@@ -1,0 +1,56 @@
+---
+- name: Confirm all necessary Tower components exist and launch job
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+  vars:
+
+    tower_host:                         localhost
+    tower_username:                     babylon
+    tower_password:                     change_me
+    tower_orgainzation:                 GPTE
+    tower_job_template_state:           present
+    cloud_provider_machine_credential:  "machine-credential-{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
+
+    # Job Config
+
+    job_type:                           run
+    tower_inventory_name:               null-inventory
+
+    # Default playbook names - inspired via agnosticd convention
+
+    playbook_path:                      ansible
+    deployer_playbook_name:             main.yml
+    destroyer_playbook_name:            destroy.yml
+
+  tasks:
+
+    - name: Set playbook name fact dependant on action
+      set_fact:
+        playbook_name: "{{ deployer_playbook_name if ( deployer_action == 'deploy') else destroyer_playbook_name }}"
+
+    - name: Create tower Ping job template
+      tower_job_template:
+        tower_host:               "t35"
+        tower_username:           "admin"
+        tower_password:           "r3dh4t1!"
+        name:                     "try1"
+        playbook:                 "ansible/main.yml"
+        project:                  "agnosticd-ocp-clientvm-prod-1.4"
+        job_type:                 "run"
+        inventory:                "null-inventory"
+
+    - name: Create tower project
+      tower_job_template:
+        tower_host:               "{{ tower_host }}"
+        tower_username:           "{{ tower_username }}"
+        tower_password:           "{{ tower_password }}"
+        name:                     "{{ deployer_action }}-{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
+        job_type:                 "{{ job_type }}"
+        inventory:                "{{ tower_inventory_name }}"
+        project:                  "{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
+        playbook:                 "{{ playbook_path }}/{{ playbook_name }}"
+        state:                    "{{ tower_job_template_state }}"
+        credential:               "{{ cloud_provider_machine_credential }}"
+...
