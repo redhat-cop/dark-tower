@@ -1,7 +1,7 @@
 ---
-
 account_id:               gpte
 deployer_playbook_name:   main.yml
+lifecycle_playbook_name:  lifecycle.yml
 
 deployer_action:          deploy
 deployer_type:            agnosticd

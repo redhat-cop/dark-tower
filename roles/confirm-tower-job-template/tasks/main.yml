@@ -1,13 +1,10 @@
 ---
 - name: Set playbook name fact dependant on action
   set_fact:
-    playbook_name: "{{ deployer_playbook_name if ( deployer_action == 'deploy') else destroyer_playbook_name }}"
+    playbook_name: "{{ deployer_playbook_name if ( deployer_action == 'deploy') else lifecycle_playbook_name }}"
 
 - name: Create tower project
   tower_job_template:
-    tower_host:               "{{ tower_host }}"
-    tower_username:           "{{ tower_username }}"
-    tower_password:           "{{ tower_password }}"
     name:                     "{{ deployer_action }}-{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
     job_type:                 "{{ job_type }}"
     inventory:                "{{ tower_inventory_name }}"
