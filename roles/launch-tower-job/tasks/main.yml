@@ -2,7 +2,7 @@
 - name: Launch Deployer job
   tower_job_launch:
     name:         "{{ deployer_action }}-{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
-    inventory:    "{{ tower_inventory_name | default('empty-inventory') }}"
+    inventory:    "null-inventory-{{ babylon_region | default (anarchy_region) | default('empty-inventory') }}"
     extra_vars:   "@{{ extra_var_file_directory }}/{{ deployer_type }}-{{ scm_tag }}-{{ guid }}.yml"
   register: r_tower_job_launch
 
@@ -16,8 +16,7 @@
     timeout:  "{{ tower_job_timeout | default(1800) }}"
   register: r_tower_job_status
 
-- name: Callback - Job cwCompletion status
+- name: Callback - Job Status
   debug:
     msg: Placeholder, callback goes here
-
 ...
