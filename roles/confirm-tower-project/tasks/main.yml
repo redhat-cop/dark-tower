@@ -1,9 +1,6 @@
 ---
-- name: Create tower project
+- name: Create tower project without instance group
   tower_project:
-    tower_host:                 "{{ tower_host }}"
-    tower_username:             "{{ tower_username }}"
-    tower_password:             "{{ tower_password }}"
     name:                       "{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
     description:                "{{ tower_project_name | default(description) }}"
     organization:               "{{ tower_orgainzation }}"

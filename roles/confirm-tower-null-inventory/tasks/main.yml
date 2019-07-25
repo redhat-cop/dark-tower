@@ -1,12 +1,9 @@
 ---
 - name: Create null inventory
   tower_inventory:
-    name:                       "{{ tower_inventory_name }}"
+    name:                       "null-inventory-{{ item.name }}"
     description:                "{{ tower_inventory_description }}"
     organization:               "{{ tower_orgainzation }}"
-    state:                      "{{ tower_inventory_state }}"
-    tower_host:                 "{{ tower_host }}"
-    tower_username:             "{{ tower_username }}"
-    tower_password:             "{{ tower_password }}"
+    state:                      "{{ tower_inventory_state | default('present') }}"
   loop: "{{ tower_instance_groups }}"
 ...

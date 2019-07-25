@@ -4,7 +4,4 @@
     name:               "{{ account_id }}"
     description:        "{{ account_id }} account"
     state:              "{{ acount_state | default('present') }}"
-    tower_host:         "{{ tower_host }}"
-    tower_username:     "{{ tower_username }}"
-    tower_password:     "{{ tower_password }}"
 ...

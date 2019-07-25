@@ -8,9 +8,9 @@
   roles:
     - save-passed-extra-vars
     - confirm-tower-organization
-    - confirm-tower-null-inventory
+    # - confirm-tower-null-inventory
+    # - confirm-tower-machine-credential
     - confirm-tower-project
-    #    - confirm-tower-machine-credential
     - confirm-tower-job-template
-    - launch-tower-job
+    # - launch-tower-job
 ...
