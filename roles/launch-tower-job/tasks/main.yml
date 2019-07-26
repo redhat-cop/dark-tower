@@ -1,5 +1,5 @@
 ---
-- name: Launch Deployer job
+- name: "Launch requested job of type {{ deployer_action }} of {{ scm_tag }}"
   tower_job_launch:
     name:         "{{ deployer_action }}-{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
     inventory:    "null-inventory-{{ babylon_region | default (anarchy_region) | default('empty-inventory') }}"
