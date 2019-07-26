@@ -1,0 +1,16 @@
+---
+- name: Use for load running - critical not to launch-tower-job unless intended
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+
+  roles:
+    - save-passed-extra-vars
+    - confirm-tower-organization
+    # - confirm-tower-null-inventory
+    # - confirm-tower-machine-credential
+    - confirm-tower-project
+    - confirm-tower-job-template
+    # - launch-tower-job
+...
