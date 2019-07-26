@@ -6,7 +6,11 @@ lifecycle_playbook_name:  lifecycle.yml
 deployer_action:          deploy
 deployer_type:            agnosticd
 
-scm_tag:                  ansible-windows-prod-0.7
+#scm_tag:                  ansible-windows-prod-0.7
 scm_type:                 git
 scm_url:                  https://github.com/redhat-cop/agnosticd.git
+
+environment_parameters:
+  - foo: my_string
+    bar: my_other_string
 ...
