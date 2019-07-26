@@ -1,5 +1,5 @@
 ---
-- name: Confirm all necessary Tower components exist and launch job
+- name: Confirm all necessary Tower components exist then launch job
   hosts: localhost
   connection: local
   gather_facts: false
