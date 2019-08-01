@@ -5,12 +5,12 @@
 
 - name: Create tower project
   tower_job_template:
-    name:                     "{{ deployer_action }}-{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
+    name:                     "{{ deployer_action }}-{{ deployer_type }}-{{ scm_reference | default(scm_branch) }}"
     job_type:                 "{{ job_type }}"
     inventory:                "{{ tower_inventory_name }}"
-    project:                  "{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
+    project:                  "{{ deployer_type }}-{{ scm_reference | default(scm_branch) }}"
     playbook:                 "{{ playbook_path }}/{{ playbook_name }}"
     state:                    "{{ tower_job_template_state }}"
-    extra_vars_path:          "{{ extra_var_file_directory }}/{{ deployer_type }}-{{ scm_tag }}-{{ guid }}.yml"
+    extra_vars_path:          "{{ extra_var_file_directory }}/{{ deployer_type }}-{{ scm_reference }}-{{ guid }}.yml"
     #    credential:               "{{ cloud_provider_machine_credential }}"
 ...
