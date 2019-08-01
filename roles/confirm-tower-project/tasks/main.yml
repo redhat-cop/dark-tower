@@ -1,9 +1,9 @@
 ---
 - name: Create tower project without instance group
   tower_project:
-    name:                       "{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
+    name:                       "{{ deployer_type }}-{{ scm_reference | default(scm_branch) }}"
     description:                "{{ tower_project_name | default(description) }}"
-    organization:               "{{ tower_orgainzation }}"
+    organization:               "{{ tower_organization }}"
     state:                      "{{ tower_project_state }}"
     scm_type:                   "{{ scm_type }}"
     scm_url:                    "{{ scm_url }}"
