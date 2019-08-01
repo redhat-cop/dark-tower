@@ -1,4 +1,7 @@
 ---
+
+guid:                     1234
+
 account_id:               gpte
 deployer_playbook_name:   main.yml
 lifecycle_playbook_name:  lifecycle.yml
@@ -6,7 +9,8 @@ lifecycle_playbook_name:  lifecycle.yml
 deployer_action:          deploy
 deployer_type:            agnosticd
 
-scm_tag:                  three-tier-app-prod-1.14
+
+scm_reference:            three-tier-app-prod-1.14
 scm_type:                 git
 scm_url:                  https://github.com/redhat-cop/agnosticd.git
 

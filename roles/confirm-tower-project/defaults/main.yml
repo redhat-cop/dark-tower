@@ -13,6 +13,7 @@ scm_type:                   git
 scm_url:                    https://github.com/redhat-cop/agnosticd.git
 scm_tag:                    development
 scm_branch:                 development
+scm_reference:              development
 scm_update_on_launch:       yes
 scm_update_cache_timeout:   0
 scm_clean:                  yes
