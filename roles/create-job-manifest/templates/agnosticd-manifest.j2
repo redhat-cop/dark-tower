@@ -1,5 +1,28 @@
 {{ ansible_managed_warning | comment() }}
 
+# job meta-data
+
+guid:                     {{ guid }}
+account_id:               {{ account_id }}
+env_type:                 {{ env_type }}
+
+subdomain_base_suffix:    {{ subdomain_base_suffix }}
+
+output_dir:               {{ babylon_output_dir }}
+own_repo_path:            {{ own_repo_path }}
+
+# cloud/platform meta-data
+
+cloud_provider:           {{ cloud_provider }}
+aws_region:               {{ aws_region }}
+HostedZoneId:             {{ aws_hosted_zone_id }}
+aws_access_key_id:        {{ aws_access_key_id }}
+aws_secret_access_key:    {{ aws_secret_access_key }}
+
+key_name:                 {{ key_name }}
+
+{{ ansible_managed_warning | comment() }}
+
 {% for e_var in environment_parameters  -%}
 {{ e_var | to_nice_yaml }}
 {%- if loop.index % 20 == 0 %}
