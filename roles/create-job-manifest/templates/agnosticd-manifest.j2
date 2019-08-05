@@ -2,36 +2,36 @@
 
 # job meta-data
 
-guid:                     {{ guid }}
-account_id:               {{ account_id }}
-env_type:                 {{ env_type }}
-email:                    {{ email }}
+guid:                             {{ guid }}
+account_id:                       {{ account_id }}
+env_type:                         {{ env_type }}
+email:                            {{ email }}
 
-subdomain_base_suffix:    {{ subdomain_base_suffix }}
+subdomain_base_suffix:            {{ subdomain_base_suffix }}
 
-output_dir:               {{ babylon_output_dir }}
-own_repo_path:            {{ own_repo_path }}
+output_dir:                       {{ babylon_output_dir }}
+own_repo_path:                    {{ own_repo_path }}
 
 # babylon metadata
 
-deployer_action:          {{ deployer_action }}
-deployer_type:            {{ deployer_type }}
-deployer_playbook_name:   main.yml
-lifecycle_playbook_name:  lifecycle.yml
+babylon_deployer_action:          {{ deployer_action }}
+babylon_deployer_type:            {{ deployer_type }}
+babylon_deployer_entry_point 
 
-scm_reference:            three-tier-app-prod-1.14
-scm_type:                 git
-scm_url:                  https://github.com/redhat-cop/agnosticd.git
+babylon_scm_reference:            three-tier-app-prod-1.14
+babylon_scm_type:                 git
+babylon_scm_url:                  https://github.com/redhat-cop/agnosticd.git
 
 # cloud/platform meta-data
 
-cloud_provider:           {{ cloud_provider }}
-aws_region:               {{ aws_region }}
-HostedZoneId:             {{ aws_hosted_zone_id }}
-aws_access_key_id:        {{ aws_access_key_id }}
-aws_secret_access_key:    {{ aws_secret_access_key }}
+cloud_provider:                   {{ cloud_provider }}
+aws_region:                       {{ aws_region }}
+HostedZoneId:                     {{ aws_hosted_zone_id }}
+aws_access_key_id:                {{ aws_access_key_id }}
+aws_secret_access_key:            {{ aws_secret_access_key }}
 
-key_name:                 {{ key_name }}
+key_name:                         {{ key_name }}
+
 
 {{ ansible_managed_warning | comment() }}
 

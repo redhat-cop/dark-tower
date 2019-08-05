@@ -5,10 +5,6 @@
     inventory:        "empty-inventory-{{ babylon_region | default (anarchy_region) | default('dev') }}"
   register:       r_tower_job_launch
 
-    #extra_vars:       "@{{ babylon_manifest_directory }}/{{ deployer_type }}-{{ deployer_action }}-{{ scm_reference }}-{{ guid }}.yml"
-
-    #extra_vars:           "@{{ extra_var_file_directory }}/{{ deployer_type }}-{{ scm_reference }}-{{ guid }}.yml"
-
 - name: Callback - Job Launch status
   debug:
     msg: Placeholder, callback goes here
