@@ -3,7 +3,7 @@
 
 # Org config
 
-tower_project_name:                 "{{ deployer_type }}-{{ scm_reference | default(scm_branch) }}"
+tower_project_name:                 "{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
 tower_organization:                 "{{ account_id }}"
 tower_project_state:                present
 
