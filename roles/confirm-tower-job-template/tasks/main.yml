@@ -1,15 +1,11 @@
 ---
-- name: Set playbook name fact dependant on action
-  set_fact:
-    playbook_name: "{{ deployer_playbook_name if ( deployer_action == 'deploy') else lifecycle_playbook_name }}"
-
 - name: Create tower job template
   tower_job_template:
-    name:               "{{ deployer_action }}-{{ deployer_type }}-{{ scm_reference | default(scm_branch) }}"
+    name:               "{{ babylon_deployer_action }}-{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
     job_type:           "{{ job_type }}"
     inventory:          "{{ tower_inventory_name }}"
-    project:            "{{ deployer_type }}-{{ scm_reference | default(scm_branch) }}"
-    playbook:           "{{ playbook_path }}/{{ playbook_name }}"
+    project:            "{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
+    playbook:           "{{ babylon_deployer_entry_point }}"
     state:              "{{ tower_job_template_state }}"
-    extra_vars_path:    "{{ babylon_manifest_directory }}/{{ deployer_type }}-{{ deployer_action }}-{{ scm_reference }}-{{ guid }}.yml"
+    extra_vars_path:    "{{ babylon_manifest_directory }}/{{ babylon_deployer_type }}-{{ babylon_deployer_action }}-{{ babylon_scm_reference }}-{{ guid }}.yml"
 ...
