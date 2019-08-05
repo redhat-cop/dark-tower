@@ -6,7 +6,7 @@
   become: false
 
   roles:
-    - save-passed-extra-vars
+    # - save-passed-extra-vars
     - create-job-manifest
     - confirm-tower-organization
     # - confirm-tower-null-inventory
