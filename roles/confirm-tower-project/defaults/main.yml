@@ -3,17 +3,13 @@
 
 # Org config
 
-tower_project_name:         "{{ deployer_type }}-{{ scm_reference | default(scm_branch) }}"
-tower_organization:         "{{ account_id }}"
-tower_project_state:        present
+tower_project_name:                 "{{ deployer_type }}-{{ scm_reference | default(scm_branch) }}"
+tower_organization:                 "{{ account_id }}"
+tower_project_state:                present
 
 # SCM config
 
-scm_type:                   git
-scm_url:                    https://github.com/redhat-cop/agnosticd.git
-scm_reference:              development
-scm_branch:                 development
-scm_update_on_launch:       yes
-scm_update_cache_timeout:   0
-scm_clean:                  yes
+babylon_scm_update_on_launch:       yes
+babylon_scm_update_cache_timeout:   0
+babylon_scm_clean:                  yes
 ...
