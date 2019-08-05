@@ -2,19 +2,32 @@
 
 guid:                     1234
 
+env_type:                 three-tier-app
 account_id:               gpte
-deployer_playbook_name:   main.yml
-lifecycle_playbook_name:  lifecycle.yml
+subdomain_base_suffix:    .example.opentlc.com
+
 
 deployer_action:          deploy
 deployer_type:            agnosticd
-
+deployer_playbook_name:   main.yml
+lifecycle_playbook_name:  lifecycle.yml
 
 scm_reference:            three-tier-app-prod-1.14
 scm_type:                 git
 scm_url:                  https://github.com/redhat-cop/agnosticd.git
 
+own_repo_path:            http://admin.example.com/repos/version
+
+cloud_provider:           ec2
+aws_region:               us-east-1
+aws_hosted_zone_id:       Z3IHLWJZOU9SRT
+key_name:                 ocpkey
+
+aws_access_key_id:        ACCESS_KEY_HERE
+aws_secret_access_key:    SECRET_KEY_HERE
+
 environment_parameters:
   - foo: my_string
     bar: my_other_string
+    foobar: third var
 ...

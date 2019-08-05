@@ -11,6 +11,17 @@ subdomain_base_suffix:    {{ subdomain_base_suffix }}
 output_dir:               {{ babylon_output_dir }}
 own_repo_path:            {{ own_repo_path }}
 
+# babylon metadata
+
+deployer_action:          {{ deployer_action }}
+deployer_type:            {{ deployer_type }}
+deployer_playbook_name:   main.yml
+lifecycle_playbook_name:  lifecycle.yml
+
+scm_reference:            three-tier-app-prod-1.14
+scm_type:                 git
+scm_url:                  https://github.com/redhat-cop/agnosticd.git
+
 # cloud/platform meta-data
 
 cloud_provider:           {{ cloud_provider }}

@@ -2,5 +2,5 @@
 - name: "Create manifest for {{ deployer_type }} {{ deployer_action }} job"
   template:
     src:  "{{ deployer_type }}-manifest.j2"
-    dest: "{{ manifest_directory }}/{{ deployer_type }}-{{ deployer_action }}-{{ scm_reference }}-{{ guid }}.yml"
+    dest: "{{ babylon_manifest_directory }}/{{ deployer_type }}-{{ deployer_action }}-{{ scm_reference }}-{{ guid }}.yml"
 ...
