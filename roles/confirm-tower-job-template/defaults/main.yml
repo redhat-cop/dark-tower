@@ -9,6 +9,6 @@ cloud_provider_machine_credential:  "machine-credential-{{ babylon_deployer_type
 
 # Job Config
 
-babylon_job_type:                   "{{ babylon_job_type | default('run') }}"
+babylon_job_type:                   run
 tower_inventory_name:               null-inventory
 ...
