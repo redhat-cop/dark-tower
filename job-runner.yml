@@ -7,6 +7,7 @@
 
   roles:
     - save-passed-extra-vars
+     - create-job-manifest
     - confirm-tower-organization
     # - confirm-tower-null-inventory
     # - confirm-tower-machine-credential
