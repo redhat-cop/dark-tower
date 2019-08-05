@@ -14,13 +14,13 @@ own_repo_path:                    {{ own_repo_path }}
 
 # babylon metadata
 
-babylon_deployer_action:          {{ deployer_action }}
-babylon_deployer_type:            {{ deployer_type }}
+babylon_deployer_action:          {{ babylon_deployer_action }}
+babylon_deployer_type:            {{ babylon_deployer_type }}
 babylon_deployer_entry_point 
 
-babylon_scm_reference:            three-tier-app-prod-1.14
-babylon_scm_type:                 git
-babylon_scm_url:                  https://github.com/redhat-cop/agnosticd.git
+babylon_scm_reference:            {{ babylon_scm_reference }}
+babylon_scm_type:                 {{ babylon_scm_type }}
+babylon_scm_url:                  {{ babylon_scm_url }}
 
 # cloud/platform meta-data
 
@@ -32,6 +32,7 @@ aws_secret_access_key:            {{ aws_secret_access_key }}
 
 key_name:                         {{ key_name }}
 
+test_var:                         I am here
 
 {{ ansible_managed_warning | comment() }}
 
