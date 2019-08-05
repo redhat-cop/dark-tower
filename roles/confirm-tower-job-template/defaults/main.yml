@@ -1,21 +1,14 @@
 ---
 # Tower config
 
-# tower_config_file:                  ./tower_cli.cfg
 # Org config
 
-tower_orgainzation:                 gpte
+tower_organization:                 "{{ account_id }}"
 tower_job_template_state:           present
-cloud_provider_machine_credential:  "machine-credential-{{ deployer_type }}-{{ scm_reference | default(scm_branch) }}"
+cloud_provider_machine_credential:  "machine-credential-{{ babylon_deployer_type }}-{{ babylon_scm_reference | default(babylon_scm_branch) }}"
 
 # Job Config
 
-job_type:                           run
+babylon_job_type:                   "{{ babylon_job_type | default('run') }}"
 tower_inventory_name:               null-inventory
-
-# Default playbook names - inspired via agnosticd convention
-
-playbook_path:                      ansible
-deployer_playbook_name:             main.yml
-destroyer_playbook_name:            destroy.yml
 ...

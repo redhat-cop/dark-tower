@@ -2,7 +2,7 @@
 - name: Create tower job template
   tower_job_template:
     name:               "{{ babylon_deployer_action }}-{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
-    job_type:           "{{ job_type }}"
+    job_type:           "{{ babylon_job_type }}"
     inventory:          "{{ tower_inventory_name }}"
     project:            "{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
     playbook:           "{{ babylon_deployer_entry_point }}"
