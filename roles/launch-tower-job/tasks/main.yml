@@ -1,7 +1,7 @@
 ---
-- name: "Launch requested job of type {{ deployer_action }} of {{ scm_reference }}"
+- name: "Launch requested job of type {{ babylon_deployer_action }} of {{ babylon_scm_reference }}"
   tower_job_launch:
-    job_template:     "{{ deployer_action }}-{{ deployer_type }}-{{ scm_reference | default(scm_branch) }}"
+    job_template:     "{{ babylon_deployer_action }}-{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
     inventory:        "empty-inventory-{{ babylon_region | default (anarchy_region) | default('dev') }}"
   register:       r_tower_job_launch
 
