@@ -1,0 +1,13 @@
+---
+- name: A simple debug task
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+
+  tasks:
+
+    - name: Output an extra var
+      debug:
+        msg: "guid is {{ guid }}"
+...
