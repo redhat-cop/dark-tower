@@ -4,6 +4,7 @@ guid:                     1234
 
 env_type:                 three-tier-app
 account_id:               gpte
+email:                    babylon@example.com
 subdomain_base_suffix:    .example.opentlc.com
 
 
