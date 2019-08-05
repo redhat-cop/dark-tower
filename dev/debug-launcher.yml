@@ -1,0 +1,10 @@
+---
+- name: A simple debug task
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+
+  roles:
+    - launch-debug-job
+...
