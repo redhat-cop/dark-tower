@@ -7,5 +7,5 @@
     project:            "{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
     playbook:           "{{ babylon_deployer_entry_point }}"
     state:              "{{ tower_job_template_state }}"
-    #    extra_vars_path:    "{{ babylon_manifest_directory }}/{{ babylon_deployer_type }}-{{ babylon_deployer_action }}-{{ babylon_scm_reference }}-{{ guid }}.yml"
+    extra_vars_path:    "{{ babylon_manifest_directory }}/{{ babylon_deployer_type }}-{{ babylon_deployer_action }}-{{ babylon_scm_reference }}-{{ guid }}.yml"
 ...
