@@ -36,11 +36,13 @@ key_name:                         {{ key_name }}
 
 {{ ansible_managed_warning | comment() }}
 
+{% if environment_parameters is defined %}
 {% for e_var in environment_parameters  -%}
 {{ e_var | to_nice_yaml }}
 {%- if loop.index % 20 == 0 %}
 {{ ansible_managed_warning | comment() }}
 {% endif -%}
 {%- endfor %}
+{% endif %}
 
 {{ ansible_managed_warning | comment() }}
