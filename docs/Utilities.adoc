@@ -1,26 +1,5 @@
 :toc:
 
-== Overview
-
-The Babylon repo contains the Ansible Playbooks and roles for the Ansible Babylon Tower Project. These are used for final configuration, and customization of a Babylon Tower cluster *and* also the core `job-runner` playbook and associated roles to allow a Babylon Tower to be remotely called to deploy, teardown, idle and start infrastructure using ansible based deployers such as link:https://github.com/redhat-cop/agnosticd.git[agnosticd] and link:https://github.com/ansible/workshops.git[ansible workshops].
-
-=== Babylon Tower Project Overview
-
-*_Babylon Tower_* is an Ansible Tower based projects which allows dynamic deployments of environment via Ansible based deployers such as AgnosticD or the Ansible Workshop deployer.
-
-Once deployed, with a single project and job-template called the `job-runner`, Babylon can create all necessary artifacts to automatically download an Ansible based deployer and launch the requested `action`.
-
-
-=== Primary Components
-
-* `job-runner.yml` - Entry point for all jobs (deploy, teardown, idle, start)
-
-The job runner
-
-===
-
-
-
 
 
 ==== babylon-ping.yml
