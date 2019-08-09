@@ -6,12 +6,9 @@
     extra_vars:       "@{{ babylon_manifest_directory }}/{{ babylon_deployer_type }}-{{ babylon_deployer_action }}-{{ babylon_scm_reference }}-{{ guid }}.yml"
   register:       r_tower_job_launch
 
-- when:
-    - babylon_callback_url is defined
-    - babylon_callback_token is defined
-  name: Callback with Job Launch Status
-  import_role:
-    name: babylon-callback
+- name: Callback to Anarchy with Job LAUNCH Status
+  include_role:
+    name: anarchy-job-status-callback
     allow_duplicates: yes
   vars:
     babylon_callback_event: started
