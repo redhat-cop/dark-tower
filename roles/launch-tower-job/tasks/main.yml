@@ -4,8 +4,16 @@
     job_template:     "{{ babylon_deployer_action }}-{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
     inventory:        "empty-inventory-{{ babylon_region | default (anarchy_region) | default('dev') }}"
     extra_vars:       "@{{ babylon_manifest_directory }}/{{ babylon_deployer_type }}-{{ babylon_deployer_action }}-{{ babylon_scm_reference }}-{{ guid }}.yml"
-
   register:       r_tower_job_launch
+
+- name: Callback to Anarchy with Job LAUNCH Status
+  include_role:
+    name: anarchy-job-status-callback
+    allow_duplicates: yes
+  vars:
+    babylon_callback_event: started
+    babylon_message:
+      - "{{ babylon_deployer_action }}-{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
 
 - name: Callback - Job Launch status
   debug:
