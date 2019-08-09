@@ -11,7 +11,8 @@
     - babylon_callback_token is defined
   name: Callback with Job Launch Status
   import_role:
-    name: babylon_callback
+    name: babylon-callback
+    allow_duplicates: yes
   vars:
     babylon_callback_event: started
     babylon_message:
