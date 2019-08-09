@@ -1,0 +1,35 @@
+== Getting Started with Babylon and Tower API
+
+
+Overview
+
+This document outlines deploying:
+* Your own Babylon test infrastructure (single tower server *or* cluster)
+* Running your first deployment workloads via the Tower API
+
+=== Pre-requisites
+
+* A host capable and configured of running Ansible
+* AWS Credentials
+* An Ansible Tower License
+
+==== Step 1 - Creating your Own Babylon Server
+
+This allows you to deploy, with a single command, automatically a fully configured Babylon Server using the `ans-tower-prod` config in the link:https://github.com/redhat-cop/agnosticd.git[agnosticd] repo.
+
+. Clone the repo
++
+[source,bash]
+----
+$ git clone https://github.com/redhat-cop/agnosticd.git
+----
+. Prepare a `yaml` based variable file 
++
+Each `config` such as `ans-tower-prod` comes complete with it's own set of sensible defaults settings. However even a simple deploy will need a number of parameters. An example file is given here with sensitive information like credentials removed (these have been clearly marked). 
+
+
+
+$ cd agnosticd/ansible
+$
+
+.

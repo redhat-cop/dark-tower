@@ -1,0 +1,291 @@
+== Getting Started with Babylon and Tower API
+
+
+Overview
+
+This document outlines deploying:
+* Your own Babylon test infrastructure (single tower server *or* cluster)
+* Running your first deployment workloads via the Tower API
+
+=== Pre-requisites
+
+* A host capable and configured of running Ansible
+* AWS Credentials
+* An Ansible Tower License
+
+==== Step 1 - Creating your Own Babylon Server
+
+This allows you to deploy automatically a fully configured Babylon Server
+
+NOTE: The package is `ansible-tower-cli` but the command is `tower-cli`
+
+* A running Babylon cluster like tower1.babylon.example.opentlc.com
+* An account on the target Babylon Cluster
+* AWS Credentials
+* A vars file for a Babylon deployed agnosticd config (see below)
+
+=== Getting set up
+
+. Install `tower-cli`
++
+[source,bash]
+----
+$ pip install ansible-tower-cli
+----
+
+. Configure `tower-cli`
+** There are actually 2 ways to do this
+*** Create a `.tower_cli.cfg` file in `~` or current working directory
++
+[source,bash]
+----
+[general]
+host = tower1.babylon.example.opentlc.com
+username = admin
+password = changeme
+verify_ssl = false
+----
+
+*** Use Environmental variables as shown below (change credentials to suit)
++
+----
+export TOWER_HOST=tower1.babylon1.example.opentlc.com
+export TOWER_USERNAME=babylon
+export TOWER_PASSWORD=changeme
+export TOWER_VERIFY_SSl=false
+----
+
+NOTE: Don't forget to change the credentials to the correct user and password. I prefer using the Environmental variables and just saving them in a script.
+
+=== First Babylon Commands
+
+. Call the Babylon Tower API and launch a job with a var file
++
+[source,bash]
+----
+$ tower-cli job launch --job-template=job-runner-dev -e @deploy-windows-vars.yml
+----
++
+[source,bash]
+----
+Resource changed.
+==== ============ =========================== ======= =======
+ id  job_template           created           status  elapsed
+==== ============ =========================== ======= =======
+3719           38 2019-08-06T23:14:17.822741Z pending 0.0
+==== ============ =========================== ======= =======
+----
+. Note the `job id` - check the job status
++
+[source,bash]
+----
+tower-cli job status  3719
+----
++
+[source,bash]
+----
+======= ====== =======
+elapsed failed status
+======= ====== =======
+0.0      false pending
+======= ====== =======
+----
++
+NOTE: It is worth noting the job id of earlier jobs as this will give limited feedback until the job completes. Once a job has completed the above command `tower-cli job stdout <job_id>` will give the *full* ansible playbook logs.
++
+[source,bash]
+----
+<output truncated>
+PLAY RECAP *********************************************************************
+ad1.win01.internal         : ok=6    changed=0    unreachable=0    failed=0    skipped=14   rescued=0    ignored=0   
+bastion.win01.internal     : ok=52   changed=32   unreachable=0    failed=0    skipped=38   rescued=0    ignored=0   
+localhost                  : ok=50   changed=11   unreachable=0    failed=0    skipped=42   rescued=0    ignored=0   
+support1.win01.internal    : ok=22   changed=11   unreachable=0    failed=0    skipped=19   rescued=0    ignored=0  
+----
++
+. Additional command options
+** To see real-time streaming of the Ansible logs use the `--monitor` option
++
+[source,bash]
+----
+tower-cli job launch --job-template=job-runner-dev -e @deploy-windows-vars.yml --monitor
+----
++
+** To see the actual API calls being made add the `-v` or `--verbose` option
+[source,bash]
+----
+tower-cli job launch --job-template=job-runner-dev -e @deploy-windows-vars.yml --verbose
+----
+
+Of course both `--verbose` and `--monitor` can be combined *Recomended* for techie audiences.
+
+NOTE: Remember Tower has a browsable API which makes for a good way to explore it. Point your browser to your babylon host e.g.: https://tower1.babylon1.example.opentlc.com/api/v2/ You may have to authenticate.
+
+=== A Babylon Config File
+
+2 pairs of sample vars files to pass with the `tower-cli` `-e @var-file.yml` option. As there is a single `api` endpoint behavior is determined by the values of `babylon_deployer_action` and `babylon_deployer_entry_point` i.e. which playbook to run.
+
+NOTE: AWS Credentials have been removed
+
+`ansible-windows` *deploy*
+[source,yaml]
+----
+---
+
+guid:                             win01
+
+env_type:                         ansible-windows
+account_id:                       gpte
+email:                            babylon@example.com
+subdomain_base_suffix:            .example.opentlc.com
+
+babylon_deployer_type:            agnosticd
+babylon_deployer_action:          deploy
+babylon_deployer_entry_point:     ansible/main.yml
+
+babylon_scm_reference:            ansible-windows-prod-0.8
+babylon_scm_type:                 git
+babylon_scm_url:                  https://github.com/redhat-cop/agnosticd.git
+
+babylon_callback_url:             some_url
+babylon_callback_token:           some_token
+
+own_repo_path:                    http://admin.na.shared.opentlc.com/repos/ocp/3.6
+
+cloud_provider:                   ec2
+aws_region:                       us-east-1
+aws_hosted_zone_id:               <YOUR-HOST-ZONE-ID-KEY-HERE>
+key_name:                         ocpkey
+
+aws_access_key_id:                <YOUR-ACCESS-KEY-HERE>
+aws_secret_access_key:            <YOUR-SECRET-ACCESS-KEY-HERE>
+
+environment_parameters:
+  - foo: my_string
+    bar: my_other_string
+    foobar: third var
+...
+----
+
+`ansible-windows` *destroy*
+
+[source,yaml]
+----
+---
+
+guid:                             win01
+
+env_type:                         ansible-windows
+account_id:                       gpte
+email:                            babylon@example.com
+subdomain_base_suffix:            .example.opentlc.com
+
+babylon_deployer_type:            agnosticd
+babylon_deployer_action:          destroy
+babylon_deployer_entry_point:     ansible/destroy.yml
+
+babylon_scm_reference:            ansible-windows-prod-0.8
+babylon_scm_type:                 git
+babylon_scm_url:                  https://github.com/redhat-cop/agnosticd.git
+
+babylon_callback_url:             some_url
+babylon_callback_token:           some_token
+
+own_repo_path:                    http://admin.na.shared.opentlc.com/repos/ocp/3.6
+
+cloud_provider:                   ec2
+aws_region:                       us-east-1
+aws_hosted_zone_id:               <YOUR-HOST-ZONE-ID-KEY-HERE>
+key_name:                         ocpkey
+
+aws_access_key_id:                <YOUR-ACCESS-KEY-HERE>
+aws_secret_access_key:            <YOUR-SECRET-ACCESS-KEY-HERE>
+
+environment_parameters:
+  - foo: my_string
+    bar: my_other_string
+    foobar: third var
+...
+----
+
+* `three-tier-app` *deploy*:
++
+[source,yaml]
+----
+---
+
+guid:                             evar01
+
+env_type:                         three-tier-app
+account_id:                       gpte
+email:                            babylon@example.com
+subdomain_base_suffix:            .example.opentlc.com
+
+babylon_deployer_type:            agnosticd
+babylon_deployer_action:          deploy
+babylon_deployer_entry_point:     ansible/main.yml
+
+babylon_scm_reference:            three-tier-app-prod-1.14
+babylon_scm_type:                 git
+babylon_scm_url:                  https://github.com/redhat-cop/agnosticd.git
+
+babylon_callback_url:             some_url
+babylon_callback_token:           some_token
+
+own_repo_path:                    http://admin.na.shared.opentlc.com/repos/ocp/3.6
+
+cloud_provider:                   ec2
+aws_region:                       us-east-1
+aws_hosted_zone_id:               <YOUR-HOST-ZONE-ID-KEY-HERE>
+key_name:                         ocpkey
+
+aws_access_key_id:                <YOUR-ACCESS-KEY-HERE>
+aws_secret_access_key:            <YOUR-SECRET-ACCESS-KEY-HERE>
+
+environment_parameters:
+  - foo: my_string
+    bar: my_other_string
+    foobar: third var
+...
+
+----
+
+
+* `three-tier-app` *destroy*:
++
+[source,yaml]
+----
+---
+---
+
+guid:                             evar01
+
+env_type:                         three-tier-app
+account_id:                       gpte
+email:                            babylon@example.com
+subdomain_base_suffix:            .example.opentlc.com
+
+babylon_deployer_type:            agnosticd
+babylon_deployer_action:          destroy
+babylon_deployer_entry_point:     ansible/destroy.yml
+
+babylon_scm_reference:            three-tier-app-prod-1.14
+babylon_scm_type:                 git
+babylon_scm_url:                  https://github.com/redhat-cop/agnosticd.git
+
+own_repo_path:                    http://admin.na.shared.opentlc.com/repos/ocp/3.6
+
+cloud_provider:                   ec2
+aws_region:                       us-east-1
+aws_hosted_zone_id:               <YOUR-HOST-ZONE-ID-KEY-HERE>
+key_name:                         ocpkey
+
+aws_access_key_id:                <YOUR-ACCESS-KEY-HERE>
+aws_secret_access_key:            <YOUR-SECRET-ACCESS-KEY-HERE>
+
+environment_parameters:
+  - foo: my_string
+    bar: my_other_string
+    foobar: third var
+...
+----
