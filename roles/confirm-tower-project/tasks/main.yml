@@ -10,4 +10,10 @@
     scm_branch:                 "{{ babylon_scm_reference | default(babylon_scm_branch) | default('development') }}"
     scm_update_on_launch:       "{{ babylon_scm_update_on_launch }}"
     scm_update_cache_timeout:   "{{ babylon_scm_update_cache_timeout }}"
+  register: r_tower_project  
+  
+- when: r_tower_project.changed  
+  name: Pause to allow project sync
+  pause:
+    seconds: "{{ project_sync_pause_seconds | default(20) }}"
 ...

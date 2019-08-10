@@ -6,12 +6,11 @@
   become: false
 
   roles:
-    # - save-passed-extra-vars
+    - confirm-tower-project
     - create-job-manifest
     - confirm-tower-organization
     # - confirm-tower-null-inventory
     # - confirm-tower-machine-credential
-    - confirm-tower-project
     - confirm-tower-job-template
     - launch-tower-job
 ...

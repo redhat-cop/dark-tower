@@ -1,0 +1,36 @@
+---
+- name: Test the job creation role directly 
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: false
+
+  vars:
+    tower_host:               "{{ lookup('ENV', 'TOWER_HOST' ) }}"
+    tower_username:           "{{ lookup('ENV', 'TOWER_USERNAME' ) }}"
+    tower_password:           "{{ lookup('ENV', 'TOWER_PASSWORD' ) }}"
+
+    tower_job_template_state:           present
+    extra_var_file_directory:           /tmp
+    job_type:                           run
+    tower_inventory_name:               empty-inventory-default
+
+  tasks:
+
+    - name: Create tower job template
+      tower_job_template:
+        tower_host:               "{{ tower_host }}"
+        tower_username:           "{{ tower_username }}"
+        tower_password:           "{{ tower_password }}"
+        name:                     "test-{{ babylon_deployer_action }}-{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
+        job_type:                 "{{ job_type }}"
+        inventory:                "{{ tower_inventory_name }}"
+        project:                  "{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
+        playbook:                 "{{ babylon_deployer_entry_point }}"
+        state:                    "{{ tower_job_template_state }}"
+        ask_credential:           true 
+        # vault_credential:         babylon-fake-vault-credential
+        # credential:               babylon-tower-credential
+        # ask_credential:           yes
+        extra_vars_path:          "{{ extra_var_file_directory }}/{{ babylon_deployer_type }}-{{ babylon_deployer_action }}-{{ babylon_scm_reference }}-{{ guid }}.yml"
+...
