@@ -10,5 +10,5 @@ tower_job_template_state:           present
 # Job Config
 
 babylon_job_type:                   run
-tower_inventory_name:               empty-inventory
+#tower_inventory_name:               empty-inventory-default
 ...
