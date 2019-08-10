@@ -1,5 +1,5 @@
 ---
-- name: Create tower job template
+- name: "Create tower job template for {{ babylon_deployer_type }} {{ babylon_deployer_action }}"
   tower_job_template:
     name:               "{{ babylon_deployer_action }}-{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
     job_type:           "{{ babylon_job_type }}"
@@ -7,6 +7,6 @@
     project:            "{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
     playbook:           "{{ babylon_deployer_entry_point }}"
     state:              "{{ tower_job_template_state }}"
-    credential:         "{{ tower_job_credential | default('babylon-tower-credential') }}"
+    credential:         "{{ tower_job_credential | default('') }}"
     extra_vars_path:    "{{ babylon_manifest_directory }}/{{ babylon_deployer_type }}-{{ babylon_deployer_action }}-{{ babylon_scm_reference }}-{{ guid }}.yml"
 ...
