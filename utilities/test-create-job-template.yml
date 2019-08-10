@@ -6,36 +6,31 @@
   gather_facts: false
 
   vars:
-    tower_orgainzation:                 gpte
+    tower_host:               "{{ lookup('ENV', 'TOWER_HOST' ) }}"
+    tower_username:           "{{ lookup('ENV', 'TOWER_USERNAME' ) }}"
+    tower_password:           "{{ lookup('ENV', 'TOWER_PASSWORD' ) }}"
+
     tower_job_template_state:           present
-    cloud_provider_machine_credential:  "machine-credential-{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
+    extra_var_file_directory:           /tmp
     job_type:                           run
-    tower_inventory_name:               empty-inventory
-    playbook_path:                      ansible
-    deployer_playbook_name:             main.yml
-    destroyer_playbook_name:            destroy.yml
-    deployer_action:                    deploy
-    deployer_type:                      agnosticd
-    scm_tag:                            ansible-windows-prod-0.7
-    scm_type:                           git
+    tower_inventory_name:               empty-inventory-default
 
   tasks:
 
-    - name: Set playbook name fact dependant on action
-      set_fact:
-        playbook_name: "{{ deployer_playbook_name if ( deployer_action == 'deploy') else destroyer_playbook_name }}"
-
-    - name: Create tower project
+    - name: Create tower job template
       tower_job_template:
         tower_host:               "{{ tower_host }}"
         tower_username:           "{{ tower_username }}"
         tower_password:           "{{ tower_password }}"
-        name:                     "{{ deployer_action }}-{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
+        name:                     "test-{{ babylon_deployer_action }}-{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
         job_type:                 "{{ job_type }}"
         inventory:                "{{ tower_inventory_name }}"
-        project:                  "{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
-        playbook:                 "{{ playbook_path }}/{{ playbook_name }}"
+        project:                  "{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
+        playbook:                 "{{ babylon_deployer_entry_point }}"
         state:                    "{{ tower_job_template_state }}"
-        #  extra_vars_path:          "{{ extra_var_file_directory }}/{{ deployer_type }}-{{ scm_tag }}-{{ guid }}.yml"
-        #  credential:               "{{ cloud_provider_machine_credential }}"
+        ask_credential:           true 
+        # vault_credential:         babylon-fake-vault-credential
+        # credential:               babylon-tower-credential
+        # ask_credential:           yes
+        extra_vars_path:          "{{ extra_var_file_directory }}/{{ babylon_deployer_type }}-{{ babylon_deployer_action }}-{{ babylon_scm_reference }}-{{ guid }}.yml"
 ...
