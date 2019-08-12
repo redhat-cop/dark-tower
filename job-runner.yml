@@ -6,8 +6,10 @@
   become: false
 
   roles:
-    - confirm-tower-project
+    - babylon-security-checks
+    - babylon-api-checks
     - create-job-manifest
+    - confirm-tower-project
     - confirm-tower-organization
     # - confirm-tower-null-inventory
     # - confirm-tower-machine-credential
