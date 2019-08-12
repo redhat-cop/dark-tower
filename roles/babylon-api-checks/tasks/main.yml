@@ -1,0 +1,5 @@
+---
+- name: PLACEHOLDER - Any API validation checks can be enforced here
+  debug:
+    msg: PLACEHOLDER at babylon job-runner API choke point for future API validation
+...
