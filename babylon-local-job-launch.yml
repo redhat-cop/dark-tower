@@ -1,0 +1,20 @@
+---
+- name: Call the Babylon job-runner with a var file
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+
+  tasks:
+
+    - name: Launch babylon job 
+      tower_job_launch:
+        job_template:     job-runner
+        extra_vars:       "@{{ bvars_file }}"
+      register:       r_tower_job_launch
+
+    - name: Output job-launch register
+      debug:
+        var: r_tower_job_launch
+        verbosity: 2
+...
