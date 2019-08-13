@@ -9,7 +9,7 @@ tower_project_state:                present
 
 # SCM config
 
-babylon_scm_update_on_launch:       yes
-babylon_scm_update_cache_timeout:   0
+babylon_scm_update_on_launch:       no
+babylon_scm_update_cache_timeout:   72000
 babylon_scm_clean:                  yes
 ...
