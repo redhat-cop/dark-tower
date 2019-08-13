@@ -9,5 +9,6 @@
     state:                    "{{ tower_job_template_state }}"
     credential:               "{{ tower_job_credential | default('') }}"
     concurrent_jobs_enabled:  yes
+    extra_vars_path:          "{{ babylon_manifest_directory }}/fake-vars.yml"
     #    extra_vars_path:          "{{ babylon_manifest_directory }}/{{ babylon_deployer_type }}-{{ babylon_deployer_action }}-{{ babylon_scm_reference }}-{{ guid }}.yml"
 ...
