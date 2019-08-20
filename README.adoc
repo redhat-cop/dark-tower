@@ -2,13 +2,18 @@
 
 == Overview
 
-The Babylon repo contains the Ansible Playbooks and roles for the Ansible Babylon Tower Project. These are used for final configuration, and customization of a Babylon Tower cluster *and* also the core `job-runner` playbook and associated roles to allow a Babylon Tower to be remotely called to deploy, teardown, idle and start infrastructure using ansible based deployers such as link:https://github.com/redhat-cop/agnosticd.git[agnosticd] and link:https://github.com/ansible/workshops.git[ansible workshops].
+The Dark Tower repo contains the Ansible Playbooks and roles for the backe-end component, Dark Tower, of the Ansible Babylon Tower Project. These are used for final configuration, and customization of a Ansible Tower cluster *and* also the core `job-runner` playbook and associated roles to allow a Babylon Tower to be remotely called to deploy, teardown, idle and start infrastructure using ansible based deployers such as link:https://github.com/redhat-cop/agnosticd.git[agnosticd] and link:https://github.com/ansible/workshops.git[ansible workshops].
 
 === Babylon Tower Project Overview
 
 *_Babylon Tower_* is an Ansible Tower based projects which allows dynamic deployments of environment via Ansible based deployers such as AgnosticD or the Ansible Workshop deployer.
 
 Once deployed, with a single project and job-template called the `job-runner`, Babylon can create all necessary artifacts to automatically download an Ansible based deployer and launch the requested `action`.
+
+
+
+
+=== Documentation
 
 
 === Primary Components
@@ -18,73 +23,3 @@ Once deployed, with a single project and job-template called the `job-runner`, B
 The job runner
 
 ===
-
-
-
-
-
-==== babylon-ping.yml
-
-Allows you to test the contracted interface with by passing vars. Samples of both can ibe found in `./vars`:
-[source,bash]
-----
-└── vars
-    ├── agnosticd-ping-mandatory-vars.yml     <1>
-    └── agnosticd-ping-optional-vars.yml      <2>
-----
-
-. Mandatory vars which must be presented
-. Optional vars which can be presented
-
-==== Usage:
-
-[source,bash]
-----
-tower-cli job launch --job-template=agnostic-ping \
-    -e @vars/agnosticd-ping-mandatory-vars.yml \
-    -e @vars/agnosticd-ping-optional-vars.yml
-----
-
-NOTE: `tower-cli job stdout <JOB_NUMBER>` will return the log output.
-
-In ugly, non refactored, python: 
-[source,python]
-----
-#!/usr/bin/env python
-
-import requests
-import json, sys
-from requests.auth import HTTPBasicAuth
-
-tower_job_id = "agnostic-ping"
-
-from configparser import ConfigParser
-
-tower_cli_cfg_path = './.tower_cli.cfg'
-config_section = 'general'
-config = ConfigParser()
-config.read(tower_cli_cfg_path)
-
-tower_host = config.get(config_section, 'host')
-tower_user = config.get(config_section, 'username')
-tower_password = config.get(config_section, 'password')
-
-tower_api_endpoint = "https://" + tower_host + "/api/v2"
-data = '{"extra_vars": {"deployment_id": "a_unique_python", "deployment_type" : "ocp4-workshop", "account_id" :"an_account_id" }}'
-
-def tower_launch_job(job_id, data):
-    tower_launch_endpoint = tower_api_endpoint + "/job_templates/" + job_id + "/launch/"
-    response = requests.request("POST", \
-            tower_launch_endpoint, \
-            headers={'Content-Type' : 'application/json'}, \
-            verify=False, \
-            data=data, \
-            auth=HTTPBasicAuth(tower_user,tower_password))
-    return response
-
-response = tower_launch_job(tower_job_id, data)
-j_response = json.dumps(response.json(), indent = 4)
-print(j_response)
-
-----
-
