@@ -1,3 +1,4 @@
+---
 {{ ansible_managed_warning | comment() }}
 
 # job meta-data
@@ -23,3 +24,10 @@ babylon_callback_token:           {{ babylon_callback_token }}
 {{ environment_parameters | to_nice_yaml }}
 
 {{ ansible_managed_warning | comment() }}
+
+{% if secrets is defined %}
+{{ secrets | to_nice_yaml }}
+{% endif %}
+
+{{ ansible_managed_warning | comment() }}
+...
