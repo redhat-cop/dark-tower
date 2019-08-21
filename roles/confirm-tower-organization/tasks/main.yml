@@ -1,8 +1,8 @@
 ---
 - name: Create tower organization
   tower_organization:
-    name:               "{{ account_id }}"
-    description:        "{{ account_id }} account"
-    state:              "{{ acount_state | default('present') }}"
+    name:               "{{ tower_organization }}"
+    description:        "{{ tower_organization }} Account"
+    state:              "{{ tower_organization_state | default('present') }}"
     validate_certs:     no
 ...

@@ -1,6 +1,6 @@
 ---
 # Org config
 
-tower_orgainzation:                 "{{ account_id }}"
-tower_orgainzation_state:           present
+tower_organization:                 "{{ babylon_organization }}"
+tower_organization_state:           present
 ...
