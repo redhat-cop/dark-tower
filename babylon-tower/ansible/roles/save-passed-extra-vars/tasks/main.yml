@@ -1,7 +1,0 @@
----
-- when: environment_parameters is defined
-  name: Store away any extra-vars for job launch
-  template:
-    src:  extra-var-writer.j2
-    dest: "{{ extra_var_file_directory }}/{{ deployer_type }}-{{ scm_tag }}-{{ guid }}.yml"
-...

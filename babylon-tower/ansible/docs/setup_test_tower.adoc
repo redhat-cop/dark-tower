@@ -1,9 +1,0 @@
-== Overview
-
-Setting up a Tower cluster for development with babylon
-
-This assumes using the agnosticd config link:https://github.com/redhat-cop/agnosticd/tree/development/ansible/configs/ans-tower-lab[ans-tower-labs]. 
-
-. Install tower, at this writing 2019-06-24, just a default 3 node cluster
-. Create an instance group `dev` of 1 node e.g. tower1
-** This will simplify debugging and `venv` setup initially as all work can be assigned to `dev` i.e.tower1
