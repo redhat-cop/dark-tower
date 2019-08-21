@@ -1,0 +1,9 @@
+---
+# Org config
+
+tower_inventory_name:         null-inventory
+tower_inventory_description:  Empty inventory for in-memory cloud deployers like agnosticd
+tower_orgainzation:           "{{ account_id }}"
+tower_inventory_state:        present
+
+...

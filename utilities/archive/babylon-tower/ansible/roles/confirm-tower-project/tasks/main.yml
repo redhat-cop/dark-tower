@@ -1,0 +1,16 @@
+---
+- name: Create tower project
+  tower_project:
+    tower_host:                 "{{ tower_host }}"
+    tower_username:             "{{ tower_username }}"
+    tower_password:             "{{ tower_password }}"
+    name:                       "{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
+    description:                "{{ tower_project_name | default(description) }}"
+    organization:               "{{ tower_orgainzation }}"
+    state:                      "{{ tower_project_state }}"
+    scm_type:                   "{{ scm_type }}"
+    scm_url:                    "{{ scm_url }}"
+    scm_branch:                 "{{ scm_tag | default(scm_branch) | default('development') }}"
+    scm_update_on_launch:       "{{ scm_update_on_launch }}"
+    scm_update_cache_timeout:   "{{ scm_update_cache_timeout }}"
+...

@@ -1,0 +1,21 @@
+---
+# Tower config
+
+# tower_config_file:                  ./tower_cli.cfg
+# Org config
+
+tower_orgainzation:                 GPTE
+tower_job_template_state:           present
+cloud_provider_machine_credential:  "machine-credential-{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
+
+# Job Config
+
+job_type:                           run
+tower_inventory_name:               null-inventory
+
+# Default playbook names - inspired via agnosticd convention
+
+playbook_path:                      ansible
+deployer_playbook_name:             main.yml
+destroyer_playbook_name:            destroy.yml
+...

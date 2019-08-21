@@ -1,0 +1,10 @@
+---
+- name: Respond to a babylon API endpoint contracted interface ping
+  hosts: localhost
+  gather_facts: false
+  become: false
+
+  roles:
+
+    - babylon-ping
+...

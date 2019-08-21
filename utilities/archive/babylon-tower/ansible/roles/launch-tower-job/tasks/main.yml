@@ -1,0 +1,23 @@
+---
+- name: Launch Deployer job
+  tower_job_launch:
+    name:         "{{ deployer_action }}-{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
+    inventory:    "{{ tower_inventory_name | default('empty-inventory') }}"
+    extra_vars:   "@{{ extra_var_file_directory }}/{{ deployer_type }}-{{ scm_tag }}-{{ guid }}.yml"
+  register: r_tower_job_launch
+
+- name: Callback - Job Launch status
+  debug:
+    msg: Placeholder, callback goes here
+
+- name: Wait for job to complete
+  tower_job_wait:
+    job_id:   "{{ r_tower_job_launch.id }}"
+    timeout:  "{{ tower_job_timeout | default(1800) }}"
+  register: r_tower_job_status
+
+- name: Callback - Job cwCompletion status
+  debug:
+    msg: Placeholder, callback goes here
+
+...
