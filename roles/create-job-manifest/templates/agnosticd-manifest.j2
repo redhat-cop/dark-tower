@@ -3,16 +3,16 @@
 # job meta-data
 
 guid:                             {{ guid }}
-account_id:                       {{ account_id }}
 env_type:                         {{ env_type }}
 email:                            {{ email }}
 
 subdomain_base_suffix:            {{ subdomain_base_suffix }}
 
-output_dir:                       {{ babylon_output_dir }}
-
 # babylon metadata
 
+output_dir:                       {{ babylon_output_dir }}
+
+babylon_organization:             {{ babylon_organization }}
 babylon_deployer_action:          {{ babylon_deployer_action }}
 ACTION:                           {{ babylon_deployer_action }}
 
@@ -37,8 +37,6 @@ key_name:                         {{ key_name }}
 
 {{ ansible_managed_warning | comment() }}
 
-{% if environment_parameters is defined %}
 {% environment_parameters | to_nice_yaml -%}
-{% endif -%}
 
 {{ ansible_managed_warning | comment() }}
