@@ -4,7 +4,7 @@
 # Org config
 
 tower_project_name:                 "{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
-tower_organization:                 "{{ account_id }}"
+tower_organization:                 "{{ babylon_orgainzation }}"
 tower_project_state:                present
 
 # SCM config
