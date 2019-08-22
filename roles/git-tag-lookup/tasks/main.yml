@@ -1,5 +1,7 @@
 ---
-- when: babylon_git_reference is not defined
+- when: 
+    - babylon_git_reference is not defined
+    - git_tag_prefix is defined
   block:
     - name: Lookup latest git tag
       command: >-
@@ -7,8 +9,6 @@
         --refs https://github.com/redhat-cop/agnosticd.git 
         "{{ git_tag_prefix }}*" 
       register: r_git_tag_search  
-      vars:
-        git_tag_prefix: ocp4-workshop-prod
 
     - when: r_git_tag_search['rc'] == 0   
       block:
