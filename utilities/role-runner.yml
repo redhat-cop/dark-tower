@@ -1,0 +1,10 @@
+---
+- name: Run a role
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+
+  roles:
+    - git-tag-lookup
+...
