@@ -8,7 +8,7 @@
   roles:
     - babylon-security-checks
     - babylon-api-checks
-    - git-tag-lookup
+    # - git-tag-lookup
     - create-job-manifest
     - confirm-tower-project
     - confirm-tower-organization
