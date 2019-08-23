@@ -1,13 +1,29 @@
 ---
-- name: "Create tower job template for {{ babylon_deployer_type }} {{ babylon_deployer_action }}"
+- name: "Create Tower Job Template for {{ job_vars['__meta__']['deployer']['type'] }} {{ job_vars['__meta__']['tower']['action'] }}"
   tower_job_template:
-    name:                     "{{ babylon_deployer_action }}-{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
-    job_type:                 "{{ babylon_job_type }}"
-    inventory:                "{{ tower_inventory_name | default('empty-inventory-default') }}"
-    project:                  "{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
-    playbook:                 "{{ babylon_deployer_entry_point }}"
-    state:                    "{{ tower_job_template_state }}"
-    credential:               "{{ tower_job_credential | default('') }}"
-    concurrent_jobs_enabled:  yes
-    extra_vars_path:          "{{ babylon_manifest_directory }}/{{ babylon_deployer_type }}-{{ babylon_deployer_action }}-{{ babylon_scm_reference }}-{{ guid }}.yml"
+    name: >-                     
+                                  {{ 
+                                    job_vars['__meta__']['tower']['action'] ~ '-' 
+                                    job_vars['__meta__']['deployer']['type'] ~ '-'
+                                    job_vars['__meta__']['deployer']['scm_ref'] 
+                                  }}
+    job_type:                     run
+    inventory:                    "{{ tower_inventory_name | default('empty-inventory-default') }}"
+    project: >-
+                                  {{ 
+                                    job_vars['__meta__']['deployer']['type'] ~ '-'
+                                    job_vars['__meta__']['deployer']['scm_ref'] 
+                                  }}  
+    playbook:                     "{{ job_vars['__meta__']['deployer']['entry_point'] }}"
+    state:                        present
+    credential:                   "{{ tower_job_credential | default('') }}"
+    concurrent_jobs_enabled:      yes
+    extra_vars_path: >-
+                                  {{ 
+                                    babylon_manifest_directory ~ '/'
+                                    ~ job_vars['__meta__']['deployer']['type'] ~ '-'
+                                    ~ job_vars['__meta__']['tower']['action'] ~ '-'
+                                    ~ job_vars['__meta__']['deployer']['scm_ref'] ~ '-'
+                                    ~ job_vars['guid'] ~ '.yml' 
+                                  }}
 ...
