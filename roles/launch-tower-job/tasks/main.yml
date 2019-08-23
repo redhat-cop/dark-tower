@@ -7,7 +7,7 @@
                                     job_vars['__meta__']['deployer']['type'] ~ '-'
                                     job_vars['__meta__']['deployer']['scm_ref']
                                   }}
-    inventory:        "empty-inventory-{{ job_vars['__meta__']['tower']['run_group'] babylon_region | default('default') }}"
+    inventory:        "empty-inventory-{{ job_vars['__meta__']['tower']['run_group'] | default('default') }}"
     extra_vars: >-
                                 {{ 
                                   '@' ~ babylon_manifest_directory ~ '/'
