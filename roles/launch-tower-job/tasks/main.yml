@@ -1,11 +1,11 @@
 ---
 - name: "Launch requested Job of type {{ job_vars['__meta__']['tower']['action'] }} of {{ job_vars['__meta__']['deployer']['scm_ref'] }}"
   tower_job_launch:
-    job_template: >- 
+    job_template: >-
                                   {{
                                     job_vars['__meta__']['tower']['action'] ~ '-'
-                                    job_vars['__meta__']['deployer']['type'] ~ '-'
-                                    job_vars['__meta__']['deployer']['scm_ref']
+                                    ~ job_vars['__meta__']['deployer']['type'] ~ '-'
+                                    ~ job_vars['__meta__']['deployer']['scm_ref']
                                   }}
     inventory:        "empty-inventory-{{ job_vars['__meta__']['tower']['run_group'] | default('default') }}"
     extra_vars: >-
