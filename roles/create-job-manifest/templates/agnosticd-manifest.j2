@@ -1,27 +1,8 @@
 ---
 {{ ansible_managed_warning | comment() }}
 
-# job meta-data
-
-guid:                             {{ guid }}
-
-babylon_organization:             {{ babylon_organization }}
-babylon_deployer_action:          {{ babylon_deployer_action }}
-
-babylon_deployer_type:            {{ babylon_deployer_type }}
-babylon_deployer_entry_point:     {{ babylon_deployer_entry_point }}
-
-babylon_scm_reference:            {{ babylon_scm_reference }}
-babylon_scm_type:                 {{ babylon_scm_type }}
-babylon_scm_url:                  {{ babylon_scm_url }}
-
-babylon_callback_url:             {{ babylon_callback_url }}
-babylon_callback_token:           {{ babylon_callback_token }}
-
-{{ ansible_managed_warning | comment() }}
-
-{% if environment_parameters is defined %}
-{{ environment_parameters | to_nice_yaml }}
+{% if job_vars is defined %}
+{{ job_vars | to_nice_yaml }}
 {% endif %}
 
 {{ ansible_managed_warning | comment() }}

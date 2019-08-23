@@ -6,5 +6,6 @@
   become: false
 
   roles:
-    - git-tag-lookup
+    - create-job-manifest
+    #- git-tag-lookup
 ...

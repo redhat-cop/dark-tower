@@ -1,6 +1,13 @@
 ---
-- name: "Create manifest for {{ babylon_deployer_type }} {{ babylon_deployer_action }} job"
+- name: "Create manifest for {{ job_vars['__meta__']['deployer']['type'] }} {{ job_vars['__meta__']['tower']['action'] }} job"
   template:
-    src:  "{{ job_vars['__meta__']['deployer']['type'] }}-manifest.j2"
-    dest: "{{ babylon_manifest_directory }}/{{ babylon_deployer_type }}-{{ babylon_deployer_action }}-{{ babylon_scm_reference }}-{{ guid }}.yml"
+    src:    "{{ job_vars['__meta__']['deployer']['type'] }}-manifest.j2"
+    dest: >-
+      {{ 
+        babylon_manifest_directory ~ '/'
+        ~ job_vars['__meta__']['deployer']['type'] ~ '-'
+        ~ job_vars['__meta__']['tower']['action'] ~ '-'
+        ~ job_vars['__meta__']['deployer']['scm_ref'] ~ '-'
+        ~ job_vars['guid'] ~ '.yml' 
+      }}
 ...

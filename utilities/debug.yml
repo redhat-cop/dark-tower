@@ -9,5 +9,9 @@
 
     - name: Output an extra var
       debug:
-        msg: "guid is {{ guid }}"
+        msg: "guid is {{ job_vars['guid'] }}"
+
+    - name: Output an extra var
+      debug:
+        msg: "Deployer type is {{ job_vars['__meta__']['deployer']['type'] }}"
 ...
