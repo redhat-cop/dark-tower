@@ -1,9 +1,21 @@
 ---
-- name: "Launch requested job of type {{ babylon_deployer_action }} of {{ babylon_scm_reference }}"
+- name: "Launch requested Job of type {{ job_vars['__meta__']['tower']['action'] }} of {{ job_vars['__meta__']['deployer']['scm_ref'] }}"
   tower_job_launch:
-    job_template:     "{{ babylon_deployer_action }}-{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
-    inventory:        "empty-inventory-{{ babylon_region | default (anarchy_region) | default('default') }}"
-    extra_vars:       "@{{ babylon_manifest_directory }}/{{ babylon_deployer_type }}-{{ babylon_deployer_action }}-{{ babylon_scm_reference }}-{{ guid }}.yml"
+    job_template: >- 
+                                  {{
+                                    job_vars['__meta__']['tower']['action'] ~ '-'
+                                    job_vars['__meta__']['deployer']['type'] ~ '-'
+                                    job_vars['__meta__']['deployer']['scm_ref']
+                                  }}
+    inventory:        "empty-inventory-{{ job_vars['__meta__']['tower']['run_group'] babylon_region | default('default') }}"
+    extra_vars: >-
+                                {{ 
+                                  '@' ~ babylon_manifest_directory ~ '/'
+                                   ~ job_vars['__meta__']['deployer']['type'] ~ '-'
+                                   ~ job_vars['__meta__']['tower']['action'] ~ '-'
+                                   ~ job_vars['__meta__']['deployer']['scm_ref'] ~ '-'
+                                   ~ job_vars['guid'] ~ '.yml'
+                                 }}
   register:       r_tower_job_launch
 
 - name: Callback to Anarchy with Job LAUNCH Status
@@ -14,6 +26,7 @@
     babylon_callback_event: started
     babylon_message:
       - "{{ babylon_deployer_action }}-{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
+      - "{{ job_vars['__meta__']['tower']['action'] }}-{{ job_vars['__meta__']['deployer']['type'] }}-{{ job_vars['__meta__']['deployer']['scm_ref'] }}"
 
 - name: Callback - Job Launch status
   debug:
