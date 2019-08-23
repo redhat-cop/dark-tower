@@ -1,6 +1,3 @@
 ---
-# Org config
-
-tower_organization:                 "{{ babylon_organization }}"
 tower_organization_state:           present
 ...

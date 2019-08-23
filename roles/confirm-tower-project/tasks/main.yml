@@ -1,13 +1,17 @@
 ---
-- name: Create tower project without instance group
+- name: Create Tower Project without instance group
   tower_project:
-    name:                       "{{ babylon_deployer_type }}-{{ babylon_scm_reference | default(babylon_scm_branch) }}"
-    description:                "{{ tower_project_name | default(description) }}"
-    organization:               "{{ tower_organization }}"
+    name: >-
+                                {{ 
+                                  job_vars['__meta__']['deployer']['type'] ~ '-'
+                                  ~ job_vars['__meta__']['deployer']['scm_ref'] 
+                                }}
+    description:                "{{ job_vars['__meta__']['tower']['organization'] }}"
+    organization:               "{{ job_vars['__meta__']['tower']['organization'] }}"
     state:                      "{{ tower_project_state }}"
-    scm_type:                   "{{ babylon_scm_type }}"
-    scm_url:                    "{{ babylon_scm_url }}"
-    scm_branch:                 "{{ babylon_scm_reference | default(babylon_scm_branch) | default('development') }}"
+    scm_type:                   "{{ job_vars['__meta__']['deployer']['scm_type'] }}"
+    scm_url:                    "{{ job_vars['__meta__']['deployer']['scm_url'] }}"
+    scm_branch:                 "{{ job_vars['__meta__']['deployer']['scm_ref'] }}"
     scm_update_on_launch:       "{{ babylon_scm_update_on_launch | default('no') }}"
     scm_update_cache_timeout:   "{{ babylon_scm_update_cache_timeout }}"
   register: r_tower_project  

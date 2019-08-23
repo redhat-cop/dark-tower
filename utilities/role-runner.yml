@@ -1,0 +1,11 @@
+---
+- name: Run a role
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+
+  roles:
+    - create-job-manifest
+    #- git-tag-lookup
+...

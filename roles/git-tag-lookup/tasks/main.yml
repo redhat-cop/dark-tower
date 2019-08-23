@@ -1,0 +1,23 @@
+---
+- when: 
+    - babylon_git_reference is not defined
+    - git_tag_prefix is defined
+  block:
+    - name: Lookup latest git tag
+      command: >-
+        git ls-remote --tags --sort=v:refname 
+        --refs https://github.com/redhat-cop/agnosticd.git 
+        "{{ git_tag_prefix }}*" 
+      register: r_git_tag_search  
+
+    - when: r_git_tag_search['rc'] == 0   
+      block:
+        - name: Output tag 
+          set_fact:
+            babylon_git_reference: "{{ r_git_tag_search['stdout_lines'][-1] | regex_replace('.*refs\/tags\/', '') }}"
+
+        - name: Output tag 
+          debug: 
+            var: babylon_git_reference
+            verbosity: 2
+...
