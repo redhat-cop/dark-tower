@@ -4,7 +4,7 @@
     name: >-
                                 {{ 
                                   job_vars['__meta__']['deployer']['type'] ~ '-'
-                                  job_vars['__meta__']['deployer']['scm_ref'] 
+                                  ~ job_vars['__meta__']['deployer']['scm_ref'] 
                                 }}
     description:                "{{ job_vars['__meta__']['tower']['organization'] }}"
     organization:               "{{ job_vars['__meta__']['tower']['organization'] }}"
