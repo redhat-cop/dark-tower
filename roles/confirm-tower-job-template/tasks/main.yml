@@ -13,7 +13,7 @@
                                   {{ 
                                     job_vars['__meta__']['deployer']['type'] ~ '-'
                                     ~ job_vars['__meta__']['deployer']['scm_ref']
-                                  }}  
+                                  }}
     playbook:                     "{{ job_vars['__meta__']['deployer']['entry_point'] }}"
     state:                        present
     credential:                   "{{ tower_job_credential | default('') }}"
