@@ -25,7 +25,6 @@
   vars:
     babylon_callback_event: started
     babylon_message:
-      - "{{ babylon_deployer_action }}-{{ babylon_deployer_type }}-{{ babylon_scm_reference }}"
       - "{{ job_vars['__meta__']['tower']['action'] }}-{{ job_vars['__meta__']['deployer']['type'] }}-{{ job_vars['__meta__']['deployer']['scm_ref'] }}"
 
 - name: Callback - Job Launch status
