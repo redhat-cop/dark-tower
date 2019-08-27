@@ -1,0 +1,28 @@
+---
+- when:
+    - job_callback_url is defined
+    - job_callback_token is defined
+  name: DEBUG - Callback to deployer
+  block:
+    - name: Debug vars for Callback to supplied API endpoint task
+      debug:
+        msg:
+          - "job_callback_url     {{ job_callback_url }}"
+          - "job_callback_event   {{ job_callback_event }}"
+          - "job_callback_stage   {{ job_callback_stage }}"
+          - "job_callback_message {{ job_callback_message }}"
+        verbosity: 2
+
+    - name: Callback to supplied API endpoint
+      uri:
+        url:              "{{ job_callback_url }}"
+        method:           POST
+        body_format:      json
+        body:
+          stage:          "{{ job_callback_stage }}"
+          event:          "{{ job_callback_event }}"
+          message:        "{{ job_callback_message }}"
+        headers:
+          Authorization: Bearer {{ job_callback_token }}
+      ignore_errors: true
+...

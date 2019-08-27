@@ -1,0 +1,6 @@
+---
+job_callback_event: 'job_callback_event UNDEFINED'
+job_callback_message: 'job_callback_message UNDEFINED'
+job_callback_stage: 'job_callback_stage UNDEFINED'
+job_callback_token: "{{ job_vars['__meta__']['callback']['token'] }}"
+job_callback_url: "{{ job_vars['__meta__']['callback']['url'] }}"

@@ -18,13 +18,12 @@
                                  }}
   register:       r_tower_job_launch
 
-- name: Callback to Anarchy with Job LAUNCH Status
+- name: Callback with job started event
   include_role:
-    name: anarchy-job-status-callback
-    allow_duplicates: yes
+    name: job_callback
   vars:
-    babylon_callback_event: started
-    babylon_message:
+    job_callback_event: started
+    job_callback_message:
       - "{{ job_vars['__meta__']['tower']['action'] }}-{{ job_vars['__meta__']['deployer']['type'] }}-{{ job_vars['__meta__']['deployer']['scm_ref'] }}"
       - "{{ r_tower_job_launch }}"
 
@@ -34,13 +33,12 @@
     timeout:  "{{ tower_job_timeout | default(1800) }}"
   register: r_tower_job_status
 
-- name: Callback to Anarchy with Job COMPLETION Status
+- name: Callback with job complete event
   include_role:
-    name: anarchy-job-status-callback
-    allow_duplicates: yes
+    name: job_callback
   vars:
-    babylon_callback_event: started
-    babylon_message:
+    job_callback_event: complete
+    job_callback_message:
       - "{{ job_vars['__meta__']['tower']['action'] }}-{{ job_vars['__meta__']['deployer']['type'] }}-{{ job_vars['__meta__']['deployer']['scm_ref'] }}"
       - "{{ r_tower_job_status }}"
 ...
