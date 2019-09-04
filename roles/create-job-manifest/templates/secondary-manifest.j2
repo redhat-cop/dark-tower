@@ -1,0 +1,15 @@
+---
+{{ ansible_managed_warning | comment() }}
+
+{% if job_vars is defined %}
+{{ job_vars | to_nice_yaml }}
+{% endif %}
+
+{{ ansible_managed_warning | comment() }}
+
+{% if secrets is defined %}
+{{ secrets | to_nice_yaml }}
+{% endif %}
+
+{{ ansible_managed_warning | comment() }}
+...
