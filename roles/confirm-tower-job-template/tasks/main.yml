@@ -3,15 +3,16 @@
   tower_job_template:
     name: >-                     
                                   {{ 
-                                    job_vars['__meta__']['tower']['action'] ~ '-' 
+                                      job_vars['__meta__']['tower']['action'] ~ '-' 
                                     ~ job_vars['__meta__']['deployer']['type'] ~ '-'
-                                    ~ job_vars['__meta__']['deployer']['scm_ref'] 
+                                    ~ job_vars['__meta__']['deployer']['scm_ref'] ~ '-' 
+                                    ~ job_vars['guid']
                                   }}
     job_type:                     run
     inventory:                    "{{ tower_inventory_name | default('empty-inventory-default') }}"
     project: >-
                                   {{ 
-                                    job_vars['__meta__']['deployer']['type'] ~ '-'
+                                      job_vars['__meta__']['deployer']['type'] ~ '-'
                                     ~ job_vars['__meta__']['deployer']['scm_ref']
                                   }}
     playbook:                     "{{ job_vars['__meta__']['deployer']['entry_point'] }}"
@@ -20,7 +21,7 @@
     concurrent_jobs_enabled:      yes
     extra_vars_path: >-
                                   {{ 
-                                    babylon_manifest_directory ~ '/'
+                                      babylon_manifest_directory ~ '/'
                                     ~ job_vars['__meta__']['deployer']['type'] ~ '-'
                                     ~ job_vars['__meta__']['tower']['action'] ~ '-'
                                     ~ job_vars['__meta__']['deployer']['scm_ref'] ~ '-'

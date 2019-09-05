@@ -1,7 +1,7 @@
 ---
 - name: "Create manifest for {{ job_vars['__meta__']['deployer']['type'] }} {{ job_vars['__meta__']['tower']['action'] }} job"
   template:
-    src:    "{{ job_vars['__meta__']['deployer']['type'] }}-manifest.j2"
+    src: "{{ job_vars['__meta__']['deployer']['type'] }}-manifest.j2"
     dest: >-
       {{ 
         babylon_manifest_directory ~ '/'
@@ -11,16 +11,9 @@
         ~ job_vars['guid'] ~ '.yml' 
       }}
 
-- when: "{{ job_vars['__meta__']['secondary_deployer']['scm_url'] }} is defined"
-  name: Create secondary manifest file for nested deployers for example linklight
-  template:
-    src:    "{{ job_vars['__meta__']['deployer']['type'] }}-manifest.j2"
-    dest: >-
-      {{ 
-        babylon_manifest_directory ~ '/'
-        ~ job_vars['__meta__']['deployer']['type'] ~ '-'
-        ~ job_vars['__meta__']['tower']['action'] ~ '-'
-        ~ job_vars['__meta__']['deployer']['scm_ref'] ~ '-'
-        ~ job_vars['guid'] ~ '.yml' 
-      }}
+#- when:  job_vars['__meta__']['secondary_deployer']['scm_url'] is defined
+#  name: Create secondary manifest file for nested deployers for example linklight
+#  template:
+#    src:    secondary-manifest.j2
+#    dest:   "{{ babylon_manifest_directory }}/{{ job_vars['env_type'] }}-{{ job_vars['guid'] }}.yml" 
 ...
