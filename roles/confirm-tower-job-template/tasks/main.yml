@@ -19,6 +19,7 @@
     state:                        present
     credential:                   "{{ tower_job_credential | default('') }}"
     concurrent_jobs_enabled:      yes
+    forks:                        "{{  job_vars['__meta__']['tower']['forks'] | default(10) }}"
     extra_vars_path: >-
                                   {{ 
                                       babylon_manifest_directory ~ '/'
