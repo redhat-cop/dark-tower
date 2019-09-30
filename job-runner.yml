@@ -1,19 +1,21 @@
 ---
-- name: Confirm all necessary Tower components exist then launch job
-  hosts: localhost
-  connection: local
-  gather_facts: false
-  become: false
+- name:           Prepare any necessary Tower components exist then launch job
+  hosts:          localhost
+  connection:     local
+  gather_facts:   false
+  become:         false
 
   roles:
-    - babylon-security-checks
-    - babylon-api-checks
-    # - git-tag-lookup
-    - create-job-manifest
-    - confirm-tower-project
-    - confirm-tower-organization
-    # - confirm-tower-null-inventory
-    # - confirm-tower-machine-credential
-    - confirm-tower-job-template
-    - launch-tower-job
+
+    - babylon-security-checks         # IMPORTANT - keep as first role
+    - babylon-api-checks              # Validation and additional logging
+    - create-job-manifest             # Create a record of job prior to running
+    # - babylon-setup-for-new-job       # Select execution instance groups etc
+    # - git-tag-lookup                  # Optionally select optimal stage git tag
+    - confirm-tower-organization      # Ensure correct organization exists
+    - confirm-tower-project           # Confirm correct repo AND tag/reference
+    - confirm-tower-job-template      # Create 1 time job template
+    - launch-tower-job                # Launch job with callbacks
+    - post-job-housekeeping           # Cleanup 1 time objects plus misc cleanup
+
 ...
