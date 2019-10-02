@@ -3,7 +3,7 @@
   set_fact:
     playbook_name: "{{ deployer_playbook_name if ( deployer_action == 'deploy') else destroyer_playbook_name }}"
 
-- name: Create tower project
+- name: Create Deployer Job Template
   tower_job_template:
     tower_host:               "{{ tower_host }}"
     tower_username:           "{{ tower_username }}"
@@ -16,5 +16,5 @@
     state:                    "{{ tower_job_template_state }}"
     extra_vars_path:          "{{ extra_var_file_directory }}/{{ deployer_type }}-{{ scm_tag }}-{{ guid }}.yml"
     #    credential:               "{{ cloud_provider_machine_credential }}"
-    ask_inventory: 	      yes
+    ask_inventory_on_launch:  "{{ ask_inventory }}"
 ...

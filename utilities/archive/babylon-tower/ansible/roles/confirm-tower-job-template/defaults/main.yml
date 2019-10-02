@@ -12,6 +12,7 @@ cloud_provider_machine_credential:  "machine-credential-{{ deployer_type }}-{{ s
 
 job_type:                           run
 tower_inventory_name:               null-inventory
+ask_inventory: 			    true
 
 # Default playbook names - inspired via agnosticd convention
 
