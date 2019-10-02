@@ -10,10 +10,11 @@
     tower_password:           "{{ tower_password }}"
     name:                     "{{ deployer_action }}-{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
     job_type:                 "{{ job_type }}"
-    inventory:                "{{ tower_inventory_name }}"
+#    inventory:                "{{ tower_inventory_name }}"
     project:                  "{{ deployer_type }}-{{ scm_tag | default(scm_branch) }}"
     playbook:                 "{{ playbook_path }}/{{ playbook_name }}"
     state:                    "{{ tower_job_template_state }}"
     extra_vars_path:          "{{ extra_var_file_directory }}/{{ deployer_type }}-{{ scm_tag }}-{{ guid }}.yml"
     #    credential:               "{{ cloud_provider_machine_credential }}"
+    ask_inventory: 	      yes
 ...
