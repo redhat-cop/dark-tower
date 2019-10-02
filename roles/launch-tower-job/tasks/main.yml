@@ -10,7 +10,7 @@
 
                                   }}
     inventory:        "empty-inventory-{{ job_vars['__meta__']['tower']['run_group'] | default('default') }}"
-    extra_vars: "{{ job_vars | to_nice_yaml }}"
+    extra_vars: "{{ ( job_vars | default({}) | combine(secrets  | default({})) ) | to_nice_yaml }}"
   register:       r_tower_job_launch
 
 - name: Callback with job started event
