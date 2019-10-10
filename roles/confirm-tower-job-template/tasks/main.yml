@@ -3,27 +3,31 @@
   tower_job_template:
     name: >-                     
                                   {{ 
-                                    job_vars['__meta__']['tower']['action'] ~ '-' 
+                                      job_vars['__meta__']['tower']['action'] ~ '-' 
                                     ~ job_vars['__meta__']['deployer']['type'] ~ '-'
-                                    ~ job_vars['__meta__']['deployer']['scm_ref'] 
+                                    ~ job_vars['__meta__']['deployer']['scm_ref'] ~ '-' 
+                                    ~ job_vars['guid']
                                   }}
     job_type:                     run
-    inventory:                    "{{ tower_inventory_name | default('empty-inventory-default') }}"
+#    inventory:                    "{{ tower_inventory_name | default('empty-inventory-default') }}"
+    ask_inventory:                yes
     project: >-
                                   {{ 
-                                    job_vars['__meta__']['deployer']['type'] ~ '-'
+                                      job_vars['__meta__']['deployer']['type'] ~ '-'
                                     ~ job_vars['__meta__']['deployer']['scm_ref']
                                   }}
     playbook:                     "{{ job_vars['__meta__']['deployer']['entry_point'] }}"
     state:                        present
     credential:                   "{{ tower_job_credential | default('') }}"
     concurrent_jobs_enabled:      yes
+    forks:                        "{{  job_vars['__meta__']['tower']['forks'] | default(10) }}"
     extra_vars_path: >-
                                   {{ 
-                                    babylon_manifest_directory ~ '/'
+                                      babylon_manifest_directory ~ '/'
                                     ~ job_vars['__meta__']['deployer']['type'] ~ '-'
                                     ~ job_vars['__meta__']['tower']['action'] ~ '-'
                                     ~ job_vars['__meta__']['deployer']['scm_ref'] ~ '-'
                                     ~ job_vars['guid'] ~ '.yml' 
                                   }}
+    
 ...
