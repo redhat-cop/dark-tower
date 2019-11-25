@@ -33,10 +33,11 @@
   include_role:
     name: job_callback
   vars:
+    job_callback_stage: main
     job_callback_event: started
-    job_callback_message:
-      - "{{ job_vars['__meta__']['tower']['action'] }}-{{ job_vars['__meta__']['deployer']['type'] }}-{{ job_vars['__meta__']['deployer']['scm_ref'] }}"
-      - "{{ r_tower_job_launch }}"
+    job_callback_message: >-
+      {{ job_vars['__meta__']['tower']['action'] }}-{{ job_vars['__meta__']['deployer']['type'] }}-{{ job_vars['__meta__']['deployer']['scm_ref'] }}
+    job_callback_data: "{{ r_tower_job_launch }}"
 
 - name: Wait for job to complete
   tower_job_wait:
@@ -48,8 +49,9 @@
   include_role:
     name: job_callback
   vars:
+    job_callback_stage: main
     job_callback_event: complete
-    job_callback_message:
-      - "{{ job_vars['__meta__']['tower']['action'] }}-{{ job_vars['__meta__']['deployer']['type'] }}-{{ job_vars['__meta__']['deployer']['scm_ref'] }}"
-      - "{{ r_tower_job_status }}"
+    job_callback_message: >-
+      {{ job_vars['__meta__']['tower']['action'] }}-{{ job_vars['__meta__']['deployer']['type'] }}-{{ job_vars['__meta__']['deployer']['scm_ref'] }}
+    job_callback_data: "{{ r_tower_job_status }}"
 ...
