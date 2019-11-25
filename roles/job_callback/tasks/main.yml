@@ -22,6 +22,7 @@
           stage:          "{{ job_callback_stage }}"
           event:          "{{ job_callback_event }}"
           message:        "{{ job_callback_message }}"
+          data:           "{{ job_callback_data }}"
         headers:
           Authorization: Bearer {{ job_callback_token }}
       ignore_errors: true
