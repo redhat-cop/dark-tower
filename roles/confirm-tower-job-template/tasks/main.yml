@@ -25,13 +25,13 @@
     request_body: "{{ body | from_yaml }}"
   vars:
     request_body: |
-      name: "{{ job_template_name }}"
-      job_type: "run"
-      project: "{{ job_project_name }}"
-      playbook: "{{ job_playbook }}"
-      custom_virtualenv: "{{ _job_virtualenv }}"
-      allow_simultaneous: True
-      forks: {{ job_forks }}
-      extra_vars: {{ job_vars | to_json }}
+      name:                {{ job_template_name | to_json }}
+      project:             {{ job_project_name  | to_json }}
+      playbook:            {{ job_playbook      | to_json }}
+      custom_virtualenv:   {{ _job_virtualenv   | to_json }}
+      forks:               {{ job_forks         | to_json }}
+      extra_vars:          {{ job_vars          | to_json }}
+      job_type:            "run"
+      allow_simultaneous:  True
   when: r_get_job_template.status == 404
 ...
