@@ -1,33 +1,37 @@
 ---
-- name: "Create Tower Job Template for {{ job_vars['__meta__']['deployer']['type'] }} {{ job_vars['__meta__']['tower']['action'] }}"
-  tower_job_template:
-    name: >-                     
-                                  {{ 
-                                      job_vars['__meta__']['tower']['action'] ~ '-' 
-                                    ~ job_vars['__meta__']['deployer']['type'] ~ '-'
-                                    ~ job_vars['__meta__']['deployer']['scm_ref'] ~ '-' 
-                                    ~ job_vars['guid']
-                                  }}
-    job_type:                     run
-#    inventory:                    "{{ tower_inventory_name | default('empty-inventory-default') }}"
-    ask_inventory:                yes
-    project: >-
-                                  {{ 
-                                      job_vars['__meta__']['deployer']['type'] ~ '-'
-                                    ~ job_vars['__meta__']['deployer']['scm_ref']
-                                  }}
-    playbook:                     "{{ job_vars['__meta__']['deployer']['entry_point'] }}"
-    state:                        present
-    credential:                   "{{ tower_job_credential | default('') }}"
-    concurrent_jobs_enabled:      yes
-    forks:                        "{{  job_vars['__meta__']['tower']['forks'] | default(10) }}"
-    extra_vars_path: >-
-                                  {{ 
-                                      babylon_manifest_directory ~ '/'
-                                    ~ job_vars['__meta__']['deployer']['type'] ~ '-'
-                                    ~ job_vars['__meta__']['tower']['action'] ~ '-'
-                                    ~ job_vars['__meta__']['deployer']['scm_ref'] ~ '-'
-                                    ~ job_vars['guid'] ~ '.yml' 
-                                  }}
-    
+- name: "Get Tower Job Template {{ job_template_name }}"
+  uri:
+    url:               "{{ ansible_tower_base_url }}/api/v2/job_templates/{{ job_template_name }}"
+    force_basic_auth:  true
+    url_username:      "{{ ansible_tower_username }}"
+    url_password:      "{{ ansible_tower_password }}"
+    validate_certs:    "{{ ansible_tower_verify_ssl }}"
+    return_content:    true
+  register: r_get_job_template
+  changed_when: false
+  failed_when: r_get_job_template.status not in [200, 404]
+
+- name: "Create Tower Job Template {{ job_template_name }}"
+  uri:
+    url:               "{{ ansible_tower_base_url }}/api/v2/job_templates/"
+    method:            "POST"
+    force_basic_auth:  true
+    url_username:      "{{ ansible_tower_username }}"
+    url_password:      "{{ ansible_tower_password }}"
+    validate_certs:    "{{ ansible_tower_verify_ssl }}"
+    return_content:    true
+    body_format:       "json"
+    # Request body from yaml to preserve data types
+    request_body: "{{ body | from_yaml }}"
+  vars:
+    request_body: |
+      name: "{{ job_template_name }}"
+      job_type: "run"
+      project: "{{ job_project_name }}"
+      playbook: "{{ job_playbook }}"
+      custom_virtualenv: "{{ _job_virtualenv }}"
+      allow_simultaneous: True
+      forks: {{ job_forks }}
+      extra_vars: {{ job_vars | to_json }}
+  when: r_get_job_template.status == 404
 ...
