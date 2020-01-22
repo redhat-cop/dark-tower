@@ -11,10 +11,17 @@
   changed_when: false
   failed_when: r_get_job_template.status not in [200, 404]
 
-- name: "Create Tower Job Template {{ job_template_name }}"
+- debug: var=r_get_job_template.json
+
+- name: "Patch or Create Tower Job Template {{ job_template_name }}"
   uri:
-    url:               "{{ ansible_tower_base_url }}/api/v2/job_templates/"
-    method:            "POST"
+    url: >-
+      {%- if r_get_job_template.status == 200 -%}
+      {{ ansible_tower_base_url }}/api/v2/job_templates/{{ r_get_job_template.json.id }}/
+      {%- else -%}
+      {{ ansible_tower_base_url }}/api/v2/job_templates/
+      {%- endif -%}
+    method:            "{{ 'PATCH' if r_get_job_template.status == 200 else 'POST' }}"
     force_basic_auth:  true
     url_username:      "{{ ansible_tower_username }}"
     url_password:      "{{ ansible_tower_password }}"
@@ -22,16 +29,16 @@
     return_content:    true
     body_format:       "json"
     # Request body from yaml to preserve data types
-    request_body: "{{ body | from_yaml }}"
+    body: "{{ request_body | from_yaml }}"
   vars:
     request_body: |
-      name:                {{ job_template_name | to_json }}
-      project:             {{ job_project_name  | to_json }}
-      playbook:            {{ job_playbook      | to_json }}
-      custom_virtualenv:   {{ _job_virtualenv   | to_json }}
-      forks:               {{ job_forks         | to_json }}
-      extra_vars:          {{ job_vars          | to_json }}
+      name:                {{ job_template_name  | to_json }}
+      project:             {{ _tower_project_id  | to_json }}
+      playbook:            {{ job_playbook       | to_json }}
+      custom_virtualenv:   {{ _job_virtualenv    | to_json }}
+      forks:               {{ job_forks          | to_json }}
+      # Double encode extra_vars as json.
+      extra_vars:          {{ job_vars | to_json | to_json }}
       job_type:            "run"
       allow_simultaneous:  True
-  when: r_get_job_template.status == 404
 ...

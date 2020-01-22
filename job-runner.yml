@@ -19,8 +19,8 @@
       }}
     job_forks:                 "{{ job_vars['__meta__']['tower']['forks'] | default(10) }}"
     job_playbook:              "{{  job_vars['__meta__']['deployer']['entry_point'] }}"
-    job_template_virtualenv:   "{{  job_vars['__meta__']['deployer']['virtualenv'] | default('') }}"
-    _job_template_virtualenv:  "{{ '/opt/rh/virtualenvs/' ~ job_virtualenv if job_virtualenv else '' }}"
+    job_virtualenv:   "{{  job_vars['__meta__']['deployer']['virtualenv'] | default('') }}"
+    _job_virtualenv:  "{{ '/opt/rh/virtualenvs/' ~ job_virtualenv if job_virtualenv else '' }}"
 
     ansible_tower_host:       "{{ lookup('env', 'TOWER_HOST') }}"
     ansible_tower_base_url:   "https://{{ ansible_tower_host }}"

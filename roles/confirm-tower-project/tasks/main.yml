@@ -1,11 +1,7 @@
 ---
 - name: Create Tower Project without instance group
   tower_project:
-    name: >-
-                                {{ 
-                                  job_vars['__meta__']['deployer']['type'] ~ '-'
-                                  ~ job_vars['__meta__']['deployer']['scm_ref'] 
-                                }}
+    name:                       "{{ job_project_name }}"
     description:                "{{ job_vars['__meta__']['tower']['organization'] }}"
     organization:               "{{ job_vars['__meta__']['tower']['organization'] }}"
     state:                      "{{ tower_project_state }}"
@@ -15,6 +11,10 @@
     scm_update_on_launch:       "{{ babylon_scm_update_on_launch | default('no') }}"
     scm_update_cache_timeout:   "{{ babylon_scm_update_cache_timeout }}"
   register: r_tower_project  
+
+- name: Set fact for tower project
+  set_fact:
+    _tower_project_id: "{{ r_tower_project.id }}"
   
 - when: r_tower_project.changed  
   name: Pause to allow project sync
