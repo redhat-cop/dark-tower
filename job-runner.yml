@@ -4,6 +4,13 @@
   connection:     local
   gather_facts:   false
   become:         false
+  pre_tasks:
+  - name: Debug tower connection settings
+    debug:
+      msg: |
+        TOWER_USERNAME: {{ lookup('env', 'TOWER_USERNAME') }}
+        TOWER_PASSWORD: {{ lookup('env', 'TOWER_PASSWORD') }}
+        TOWER_HOST: {{ lookup('env', 'TOWER_USERNAME') }}
 
   roles:
 
