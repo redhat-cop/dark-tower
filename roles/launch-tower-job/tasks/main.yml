@@ -10,16 +10,9 @@
     content: >-
       {{ ( vars.job_vars | default({}) | combine(secrets  | default({})) ) | to_nice_yaml }}
 
-- name: "Launch requested Job of type {{ job_vars['__meta__']['tower']['action'] }} of {{ job_vars['__meta__']['deployer']['scm_ref'] }}"
+- name: "Launch requested Job {{ job_template_name }}"
   tower_job_launch:
-    job_template: >-
-                                  {{
-                                    job_vars['__meta__']['tower']['action'] ~ '-'
-                                    ~ job_vars['__meta__']['deployer']['type'] ~ '-'
-                                    ~ job_vars['__meta__']['deployer']['scm_ref'] ~ '-'
-                                    ~ job_vars['guid']
-
-                                  }}
+    job_template:     "{{ job_template_name }}"
     inventory:        "empty-inventory-{{ job_vars['__meta__']['tower']['run_group'] | default('default') }}"
     extra_vars: "@{{ r_job_vars_temp.path }}"
   register:       r_tower_job_launch
