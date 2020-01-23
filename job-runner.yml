@@ -4,6 +4,34 @@
   connection:     local
   gather_facts:   false
   become:         false
+  vars:
+    job_project_name: >-
+      {{
+          job_vars['__meta__']['deployer']['type'] ~ '-'
+        ~ job_vars['__meta__']['deployer']['scm_ref']
+      }}
+    job_template_name: >-
+      {{
+          job_vars['__meta__']['tower']['action'] ~ '-'
+        ~ job_vars['__meta__']['deployer']['type'] ~ '-'
+        ~ job_vars['__meta__']['deployer']['scm_ref'] ~ '-'
+        ~ job_vars['guid']
+      }}
+    job_forks:                 "{{ job_vars['__meta__']['tower']['forks'] | default(10) }}"
+    job_playbook:              "{{  job_vars['__meta__']['deployer']['entry_point'] }}"
+    job_virtualenv:   "{{  job_vars['__meta__']['deployer']['virtualenv'] | default('') }}"
+    _job_virtualenv: >-
+      {%- if job_virtualenv is match('/') -%}
+      {{ job_virtualenv }}
+      {%- elif job_virtualenv != '' -%}
+      /opt/rh/virtualenvs/{{ job_virtualenv  }}
+      {%- endif -%}
+
+    ansible_tower_host:       "{{ lookup('env', 'TOWER_HOST') }}"
+    ansible_tower_base_url:   "https://{{ ansible_tower_host }}"
+    ansible_tower_username:   "{{ lookup('env', 'TOWER_USERNAME') }}"
+    ansible_tower_password:   "{{ lookup('env', 'TOWER_PASSWORD') }}"
+    ansible_tower_verify_ssl: "{{ lookup('env', 'TOWER_VERIFY_SSL') | bool }}"
 
   roles:
 
