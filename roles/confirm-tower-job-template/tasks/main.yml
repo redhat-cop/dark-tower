@@ -3,15 +3,13 @@
   uri:
     url:               "{{ ansible_tower_base_url }}/api/v2/job_templates/{{ job_template_name }}"
     force_basic_auth:  true
+    status_code:       [200, 404]
     url_username:      "{{ ansible_tower_username }}"
     url_password:      "{{ ansible_tower_password }}"
     validate_certs:    "{{ ansible_tower_verify_ssl }}"
     return_content:    true
   register: r_get_job_template
   changed_when: false
-  failed_when: r_get_job_template.status not in [200, 404]
-
-- debug: var=r_get_job_template.json
 
 - name: "Patch or Create Tower Job Template {{ job_template_name }}"
   uri:
@@ -23,6 +21,7 @@
       {%- endif -%}
     method:            "{{ 'PATCH' if r_get_job_template.status == 200 else 'POST' }}"
     force_basic_auth:  true
+    status_code:       [200, 201]
     url_username:      "{{ ansible_tower_username }}"
     url_password:      "{{ ansible_tower_password }}"
     validate_certs:    "{{ ansible_tower_verify_ssl }}"
