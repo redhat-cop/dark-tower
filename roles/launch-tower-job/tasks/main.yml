@@ -7,8 +7,11 @@
 - name: Write job vars to temp file
   copy:
     dest: "{{ r_job_vars_temp.path }}"
-    content: >-
+    content:
       {{ ( vars.job_vars | default({}) | combine(secrets  | default({})) ) | to_nice_yaml }}
+
+- debug:
+    msg: "{{ lookup('file', r_job_vars_temp.path) }}"
 
 - name: "Launch requested Job {{ job_template_name }}"
   tower_job_launch:
