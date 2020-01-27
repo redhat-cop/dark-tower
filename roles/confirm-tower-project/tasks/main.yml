@@ -8,15 +8,17 @@
     scm_type:                   "{{ job_vars['__meta__']['deployer']['scm_type'] }}"
     scm_url:                    "{{ job_vars['__meta__']['deployer']['scm_url'] }}"
     scm_branch:                 "{{ job_vars['__meta__']['deployer']['scm_ref'] }}"
-    scm_update_on_launch:       "{{ babylon_scm_update_on_launch | default('no') }}"
+    # Update the project when the ref is not a versioned tag.
+    scm_update_on_launch: >-
+      {{ job_vars['__meta__']['deployer']['scm_ref'] is not search('\d\.\d') }}
     scm_update_cache_timeout:   "{{ babylon_scm_update_cache_timeout }}"
-  register: r_tower_project  
+  register: r_tower_project
 
 - name: Set fact for tower project
   set_fact:
     _tower_project_id: "{{ r_tower_project.id }}"
-  
-- when: r_tower_project.changed  
+
+- when: r_tower_project.changed
   name: Pause to allow project sync
   pause:
     seconds:                    "{{ project_sync_pause_seconds | default(20) }}"
