@@ -35,6 +35,8 @@
 - name: Wait for job to complete
   tower_job_wait:
     job_id:   "{{ r_tower_job_launch.id }}"
+    min_interval: "{{ tower_job_min_interval | default(30) }}"
+    max_interval: "{{ tower_job_max_interval | default(120) }}"
     timeout:  "{{ tower_job_timeout | default(1800) }}"
   register: r_tower_job_status
 
