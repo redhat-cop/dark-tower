@@ -1,0 +1,19 @@
+---
+- name: Wait for job to complete
+  tower_job_wait:
+    job_id: "{{ _tower_job_id }}"
+    min_interval: "{{ tower_job_min_interval | default(30) }}"
+    max_interval: "{{ tower_job_max_interval | default(120) }}"
+    timeout: "{{ tower_job_timeout | default(1800) }}"
+  register: r_tower_job_status
+
+- name: Callback with job complete event
+  include_role:
+    name: job_callback
+  vars:
+    job_callback_stage: main
+    job_callback_event: complete
+    job_callback_message: >-
+      {{ job_vars['__meta__']['tower']['action'] }}-{{ job_vars['__meta__']['deployer']['type'] }}-{{ job_vars['__meta__']['deployer']['scm_ref'] }}
+    job_callback_data: "{{ r_tower_job_status }}"
+...
