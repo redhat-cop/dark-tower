@@ -1,0 +1,2 @@
+---
+tower_job_timeout: "{{ job_vars.__meta__.deployer.timeout | default(1800) }}"
