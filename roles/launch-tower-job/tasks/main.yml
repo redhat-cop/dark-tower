@@ -15,7 +15,7 @@
       {{ job_vars['__meta__']['tower']['action'] }}-{{ job_vars['__meta__']['deployer']['type'] }}-{{ job_vars['__meta__']['deployer']['scm_ref'] }}
     job_callback_data: "{{ r_tower_job_launch }}"
 
-- when: job_vars.__meta__.deployer.wait | default(true) | bool
+- when: tower_job_timeout|int > 0
   include_tasks: wait-for-job.yml
   vars:
     _tower_job_id: "{{ r_tower_job_launch.id }}"

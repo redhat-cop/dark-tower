@@ -4,7 +4,7 @@
     job_id: "{{ _tower_job_id }}"
     min_interval: "{{ tower_job_min_interval | default(30) }}"
     max_interval: "{{ tower_job_max_interval | default(120) }}"
-    timeout: "{{ tower_job_timeout | default(1800) }}"
+    timeout: "{{ tower_job_timeout }}"
   register: r_tower_job_status
   failed_when: >-
     r_tower_job_status.failed or
