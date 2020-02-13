@@ -1,33 +1,9 @@
 ---
-- name: Create temporary file for job vars
-  tempfile:
-    state: file
-  register: r_job_vars_temp
-
-- name: Write job vars to temp file
-  copy:
-    dest: "{{ r_job_vars_temp.path }}"
-    content: >-
-      {{ (
-        vars.job_vars | default({})
-      | combine(secrets  | default({}))
-      | combine({'output_dir': '/tmp/' ~ job_template_name ~ '.' ~ random_string})
-      ) | to_nice_yaml }}
-  vars:
-    random_sting: "{{ lookup('password', '/dev/null chars=ascii_letters,digits length=8') }}"
-
-
 - name: "Launch requested Job {{ job_template_name }}"
   tower_job_launch:
     job_template:     "{{ job_template_name }}"
     inventory:        "empty-inventory-{{ job_vars['__meta__']['tower']['run_group'] | default('default') }}"
-    extra_vars: "@{{ r_job_vars_temp.path }}"
   register:       r_tower_job_launch
-
-- name: Remove temporary file for job vars
-  file:
-    state: absent
-    path: "{{ r_job_vars_temp.path }}"
 
 - name: Callback with job started event
   include_role:
