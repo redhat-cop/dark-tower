@@ -45,5 +45,5 @@
         | combine(secrets  | default({}))
         | combine({'output_dir': '/tmp/' ~ job_template_name ~ '.' ~ random_string})
         ) | to_json }}
-    random_sting: "{{ lookup('password', '/dev/null chars=ascii_letters,digits length=8') }}"
+    random_string: "{{ lookup('password', '/dev/null chars=ascii_letters,digits length=8') }}"
 ...
