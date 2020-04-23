@@ -8,8 +8,9 @@
     scm_type:                   "{{ job_vars['__meta__']['deployer']['scm_type'] }}"
     scm_url:                    "{{ job_vars['__meta__']['deployer']['scm_url'] }}"
     scm_branch:                 "{{ job_vars['__meta__']['deployer']['scm_ref'] }}"
-    # Always update on launch because even tags can change between provision and destroy
-    scm_update_on_launch: true
+    # Update the project when the ref is not a versioned tag.
+    scm_update_on_launch: >-
+      {{ job_vars['__meta__']['deployer']['scm_ref'] is not search('\d\.\d') }}
     scm_update_cache_timeout:   "{{ babylon_scm_update_cache_timeout }}"
   register: r_tower_project
 
