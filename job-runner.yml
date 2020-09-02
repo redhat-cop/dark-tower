@@ -7,7 +7,7 @@
   vars:
     job_project_name: >-
       {{
-          job_vars['__meta__']['deployer']['type'] ~ '-'
+          job_vars['__meta__']['deployer']['scm_url'] ~ ' '
         ~ job_vars['__meta__']['deployer']['scm_ref']
       }}
     job_template_name: >-
