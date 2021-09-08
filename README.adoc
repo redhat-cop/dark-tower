@@ -1,5 +1,9 @@
 :toc:
 
+= DEPRECATED This repository is not used anymore =
+
+= It now lives in https://github.com/redhat-gpte-devopsautomation/babylon_anarchy_governor =
+
 == Overview
 
 The Dark Tower repo contains the Ansible Playbooks and roles for the back-end component, Dark Tower, of the Ansible Babylon Tower Project. These are used for final configuration, and customization of a Ansible Tower cluster *and* also the core `job-runner` playbook and associated roles to allow a Babylon Tower to be remotely called to deploy, teardown, idle and start infrastructure using ansible based deployers such as link:https://github.com/redhat-cop/agnosticd.git[agnosticd] and link:https://github.com/ansible/workshops.git[ansible workshops].
