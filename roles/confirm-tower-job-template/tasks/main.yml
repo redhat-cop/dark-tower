@@ -36,6 +36,7 @@
       playbook:                {{ job_playbook       | to_json }}
       custom_virtualenv:       {{ _job_virtualenv    | to_json }}
       forks:                   {{ job_forks          | to_json }}
+      timeout:                 {{ job_template_timeout | to_json }}
       job_type:                "run"
       allow_simultaneous:      True
       ask_inventory_on_launch: True

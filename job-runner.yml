@@ -18,6 +18,7 @@
         ~ job_vars['guid']
       }}
     job_forks:                 "{{ job_vars['__meta__']['tower']['forks'] | default(10) }}"
+    job_template_timeout:      "{{ job_vars['__meta__']['tower']['timeout'] | default(3*60*60) }}"
     job_playbook:              "{{  job_vars['__meta__']['deployer']['entry_point'] }}"
     job_virtualenv:   "{{  job_vars['__meta__']['deployer']['virtualenv'] | default('') }}"
     _job_virtualenv: >-
